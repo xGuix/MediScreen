@@ -7,11 +7,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -31,8 +28,19 @@ public class PatientController {
      */
     @RequestMapping("/")
     public String index() {
-        logger.info("Get patient index");
+        logger.info("Get index");
         return "index";
+    }
+
+    /**
+     * Request patient page
+     *
+     * @return String Greetings from TourGuide!
+     */
+    @GetMapping("/patient")
+    public  String patient() {
+        logger.info("Get patient index");
+        return "patient";
     }
 
     /**
@@ -40,11 +48,11 @@ public class PatientController {
      *
      * @return String Greetings from TourGuide!
      */
-    @GetMapping("/patient")
-    public  String patient(Model model, String firstName, String lastName) {
-        logger.info("Get patient with name: {} {}", firstName, lastName);
+    @GetMapping("/patient/search")
+    public  String patientSearch(Model model, String firstName, String lastName) {
+        logger.info("Send patient with name: {} {}", firstName, lastName);
         patientService.getByPatientName(model,firstName,lastName);
-        return "index";
+        return "patient";
     }
 
     /**
@@ -52,12 +60,11 @@ public class PatientController {
      *
      * @return String Greetings from TourGuide!
      */
-    @GetMapping("/patient/update")
-    public  String patientUpdate(Model model, String firstName, String lastName, LocalDate birthdate,
-                                 char gender, String address, String phoneNumber) {
-        logger.info("Update patient with name: {} {}", firstName, lastName);
-        patientService.updatePatient(model,firstName,lastName, birthdate, gender, address, phoneNumber);
-        return "index";
+    @PostMapping("/patient/update")
+    public String patientUpdate(Model model, Patient patient) {
+        logger.info("Send patient named: {} {}", patient.getFirstName(), patient.getLastName());
+        patientService.patientUpdate(model, patient);
+        return "patient";
     }
 
     /**

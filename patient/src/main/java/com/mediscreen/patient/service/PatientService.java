@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +17,32 @@ public class PatientService {
     private static Logger logger = LogManager.getLogger(PatientService.class);
     @Autowired
     IPatientRepository patientRepository;
+
+    /**
+     * Request All patient List
+     * @return List Patient The patients list
+     */
     public List<Patient> getAllPatients() {
         logger.info("Get all patients list");
         return patientRepository.findAll();
     }
+
+    /**
+     * Request All patient List
+     * @return List Patient The patients list
+     */
+    public Patient getPatientById(Long id) {
+        logger.info("Get a patients with id: {}", id);
+        return patientRepository.getReferenceById(id);
+    }
+
+    /**
+     * Request patient with name
+     * @param model Model the model
+     * @param firstName String the first name
+     * @param lastName String the last name
+     * @return List Patient The patients found list
+     */
     public List<Patient> getByPatientName(Model model, String firstName, String lastName) {
         logger.info("Get a patient by name: {} {}", firstName,lastName);
         List<Patient> patientsList = new ArrayList<>();
@@ -43,16 +65,16 @@ public class PatientService {
         }
         return patientsList;
     }
-    public Patient updatePatient(Model model, String firstName, String lastName, LocalDate birthdate, char gender, String address, String phoneNumber) {
-        List<Patient> patientsList = getByPatientName(model, firstName, lastName);
-        Patient patient = patientsList.get(patientsList.size());
-        patient.setFirstName(firstName);
-        patient.setLastName(lastName);
-        patient.setBirthdate(birthdate);
-        patient.setGender(gender);
-        patient.setAddress(address);
-        patient.setPhoneNumber(phoneNumber);
-        patientRepository.saveAndFlush(patient);
-        return patient;
+
+    /**
+     * Request patient with name
+     * @param model Model the model
+     * @param newPatient Patient the new patient infos
+     * @return The updated patient
+     */
+    public Patient patientUpdate(Model model, Patient newPatient) {
+        patientRepository.saveAndFlush(newPatient);
+        model.addAttribute("patientUpdate", "Patient info successfully update and saved");
+        return newPatient;
     }
 }

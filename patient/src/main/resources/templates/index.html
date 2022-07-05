@@ -20,95 +20,23 @@
 		    </button>
 		    <div class="collapse navbar-collapse" id="navbar">
 		      <div class="navbar-nav">
-				  <a class="nav-link" style="color:#FFFFFF" href="/allPatients"> PATIENTS </a>
-				  <a class="nav-link" style="color:#FFFFFF" href="/Note"> NOTE </a>
+				  <a class="nav-link" style="color:#FFFFFF" href="/patient"> SEARCH PATIENT </a>
+				  <a class="nav-link" style="color:#FFFFFF" href="/allPatients"> ADD/DELETE PATIENT </a>
 		      </div>		     
 		    </div>
 		  </div>
 		</nav>
-		<br><br>
-		<br><br>
+		<br><br><br>
+		<br><br><br><br>
+		<br><br><br><br>
 		<div class="container-fluid ">
 			<div class="row justify-content-md-center" >
 				<div class="col-lg-auto text-center">
-					<!-- Error message -->
-					<div th:if="${noPatientFound}" th:class="${alert}" >
-						<div class="alert alert-danger" th:text="${noPatientFound}"></div>
-					</div>
 					<br>
 					<h3>Welcome to mediscreen</h3>
-					<p>Patient quick search with first name or last name.</p>
 					<br>
-					<form th:action="@{/patient}" method="get" >
-						<!-- Patient field -->
-						<div class="input-group input-group-sm mb-3">
-							<span class="input-group-text col-4 justify-content-center" id="inputGroup1"> First name </span>
-							<input type="text" class="form-control" name="firstName" id="firstName" placeholder="Enter a first name">
-						</div>
-						<div class="input-group input-group-sm mb-3">
-							<span class="input-group-text col-4 justify-content-center" id="inputGroup2"> Last name </span>
-							<input type="text" class="form-control" name="lastName" id="lastName" placeholder="Enter a last name">
-						</div>
-						<br>
-						<button type="submit" class="btn col-5 btn-primary btn-sm"> Search </button>
-					</form>
-					<br><br>
-					<!-- Search result fields -->
-					<div th:if="${patientFound}" class="searchPatientResult">
-						<div th:each="patient : ${patientFound}" th:remove="tag">
-<!--							<strong>NAME:</strong>-->
-<!--							<span th:text="${patient.firstName}"></span>-->
-<!--							<span th:text="${patient.lastName}"></span>-->
-<!--							<br>-->
-<!--							<strong>GENDER:</strong>-->
-<!--							<span th:text="${patient.gender}"></span>-->
-<!--							<br>-->
-<!--							<strong>BIRTHDATE:</strong>-->
-<!--							<span th:text="${patient.birthdate}"></span>-->
-<!--							<br>-->
-<!--							<strong>ADDRESS:</strong>-->
-<!--							<span th:text="${patient.address}"></span>-->
-<!--							<br>-->
-<!--							<strong>PHONE:</strong>-->
-<!--							<span th:text="${patient.phoneNumber}"></span>-->
-
-							<!-- User information found : update available -->
-							<h3> PATIENT FOUND : </h3>
-							<p> Update the patient information and save.</p>
-							<div th:if="${patientUpdate}" th:class="${alert}">
-								<div class="alert alert-success"> Patient info update and saved :) </div>
-							</div>
-							<form th:action="@{/patient/update}" method="post" th:object="${patient}">
-								<div class="input-group input-group-sm mb-3">
-									<span class="input-group-text col-4 justify-content-center"> First name </span>
-									<input type="text" class="form-control" name="firstName" th:value="${patient.firstName}">
-								</div>
-								<div class="input-group input-group-sm mb-3">
-									<span class="input-group-text col-4 justify-content-center"> Last name </span>
-									<input type="text" class="form-control" name="lastName" th:value="${patient.lastName}">
-								</div>
-								<div class="input-group input-group-sm mb-3">
-									<span class="input-group-text col-4 justify-content-center"> Birthdate </span>
-									<input type="text" class="form-control" name="birthdate" th:value="${patient.birthdate}">
-								</div>
-								<div class="input-group input-group-sm mb-3">
-									<span class="input-group-text col-4 justify-content-center"> Gender </span>
-									<input type="text" class="form-control" name="gender" th:value="${patient.gender}">
-								</div>
-								<div class="input-group input-group-sm mb-3">
-									<span class="input-group-text col-4 justify-content-center"> Address </span>
-									<input type="text" class="form-control" name="address" th:value="${patient.address}">
-								</div>
-								<div class="input-group input-group-sm mb-3">
-									<span class="input-group-text col-4 justify-content-center"> Phone number </span>
-									<input type="text" class="form-control" name="phoneNumber" th:value="${patient.phoneNumber}">
-								</div>
-								<br>
-								<!-- Save button -->
-								<button type="submit" class="btn col-5 btn-primary btn-sm"> Save update </button>
-							</form>
-
-						</div>
+					<p> MediScreen help you in detecting risk for disease.
+					<br> Looking for better life and health care </p>
 					</div>
 				</div>
 			</div>

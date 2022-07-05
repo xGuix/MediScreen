@@ -5,8 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @DynamicUpdate
@@ -23,7 +22,7 @@ public class Patient {
     private String lastName;
 
     @Column(name="birthdate")
-    private LocalDate birthdate;
+    private Date birthdate;
 
     @Column(name="gender")
     private char gender;
@@ -37,7 +36,7 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(Long id, String firstName, String lastName, LocalDate birthdate, char gender, String address, String phoneNumber) {
+    public Patient(Long id, String firstName, String lastName, Date birthdate, char gender, String address, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -71,11 +70,11 @@ public class Patient {
         this.lastName = lastName;
     }
 
-    public LocalDate getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(LocalDate birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
