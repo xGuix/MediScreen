@@ -1,0 +1,5 @@
+com/mediscreen/patient/controller/MainAppController.class
+com/mediscreen/patient/model/Patient.class
+com/mediscreen/patient/MainAppApplication.class
+com/mediscreen/patient/service/MainAppService.class
+com/mediscreen/patient/repository/IMainAppRepository.class
