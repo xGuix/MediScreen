@@ -67,14 +67,36 @@ public class PatientService {
     }
 
     /**
-     * Request patient with name
+     * Request patient update info
      * @param model Model the model
-     * @param newPatient Patient the new patient infos
+     * @param patient Patient the new patient infos
      * @return The updated patient
      */
-    public Patient patientUpdate(Model model, Patient newPatient) {
-        patientRepository.saveAndFlush(newPatient);
+    public Patient patientUpdate(Model model, Patient patient) {
+        patientRepository.saveAndFlush(patient);
         model.addAttribute("patientUpdate", "Patient info successfully update and saved");
+        return patient;
+    }
+
+    /**
+     * Request to add patient
+     * @param model Model the model
+     * @param newPatient Patient the new patient
+     * @return The new patient saved
+     */
+    public Patient patientAdd(Model model, Patient newPatient) {
+        patientRepository.saveAndFlush(newPatient);
+        model.addAttribute("addPatientSucceed", "New patient successfully saved");
         return newPatient;
+    }
+
+    /**
+     * Request to delete patient
+     * @param model Model the model
+     * @param patient Patient the patient to delete
+     */
+    public void patientDelete(Model model, Patient patient) {
+        patientRepository.delete(patient);
+        model.addAttribute("deletePatientSucceed", "Patient successfully deleted");
     }
 }

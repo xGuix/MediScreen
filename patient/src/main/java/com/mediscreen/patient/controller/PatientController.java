@@ -23,7 +23,6 @@ public class PatientController {
 
     /**
      *  Request Index Controller
-     *
      * @return index
      */
     @RequestMapping("/")
@@ -34,49 +33,67 @@ public class PatientController {
 
     /**
      * Request patient page
-     *
-     * @return String Greetings from TourGuide!
+     * @return patient page
      */
     @GetMapping("/patient")
     public  String patient() {
-        logger.info("Get patient index");
+        logger.info("Get patient page");
         return "patient";
     }
 
     /**
      * Request patient to get information
-     *
-     * @return String Greetings from TourGuide!
+     * @return patient page
      */
     @GetMapping("/patient/search")
     public  String patientSearch(Model model, String firstName, String lastName) {
-        logger.info("Send patient with name: {} {}", firstName, lastName);
+        logger.info("Send search patient named: {} {}", firstName, lastName);
         patientService.getByPatientName(model,firstName,lastName);
         return "patient";
     }
 
     /**
      * Request patient to update information
-     *
-     * @return String Greetings from TourGuide!
+     * @return patient page
      */
     @PostMapping("/patient/update")
     public String patientUpdate(Model model, Patient patient) {
-        logger.info("Send patient named: {} {}", patient.getFirstName(), patient.getLastName());
+        logger.info("Send update to patient named: {} {}", patient.getFirstName(), patient.getLastName());
         patientService.patientUpdate(model, patient);
         return "patient";
     }
 
     /**
-     * Request All List of patients
-     *
-     * @return getAllPatients
+     * Request to delete patient
+     * @return allPatients page
      */
-    @GetMapping("/allPatients")
+    @RequestMapping("/patient/delete")
+    public String patientDelete(Model model, Patient patient) {
+        logger.info("Send patient to delete named: {} {}", patient.getFirstName(), patient.getLastName());
+        patientService.patientDelete(model,patient);
+        return "patient";
+    }
+
+    /**
+     * Request All List of patients
+     * @return allPatients page
+     */
+    @GetMapping("/patient/allPatients")
     public String allPatients(Model model) {
-        logger.info("Get all patients list");
+        logger.info("Send service request for all patients list");
         List<Patient> allPatients = patientService.getAllPatients();
         model.addAttribute("patientsList", allPatients);
+        return "allPatients";
+    }
+
+    /**
+     * Request to add new patient
+     * @return allPatients page
+     */
+    @PostMapping("/patient/add")
+    public String patientAdd(Model model, Patient patient) {
+        logger.info("Send new patient to add named: {} {}", patient.getFirstName(), patient.getLastName());
+        patientService.patientAdd(model,patient);
         return "allPatients";
     }
 }

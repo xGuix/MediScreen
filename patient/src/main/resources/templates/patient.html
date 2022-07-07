@@ -21,12 +21,12 @@
 		    <div class="collapse navbar-collapse" id="navbar">
 		      <div class="navbar-nav">
 				  <a class="nav-link" style="color:#FFFFFF" href="/patient"> SEARCH PATIENT </a>
-				  <a class="nav-link" style="color:#FFFFFF" href="/allPatients"> ADD/DELETE PATIENT </a>
+				  <a class="nav-link" style="color:#FFFFFF" href="/patient/allPatients"> ADD/DELETE PATIENT </a>
 		      </div>		     
 		    </div>
 		  </div>
 		</nav>
-		<br><br><br>
+		<br><br>
 		<br><br><br>
 		<div class="container-fluid ">
 			<div class="row justify-content-md-center" >
@@ -37,15 +37,19 @@
 					</div>
 					<!-- Save patient success  -->
 					<div th:if="${patientUpdate}" th:class="${alert}">
-						<div class="alert alert-success"> Patient info update and saved :) </div>
+						<div class="alert alert-success"> Patient info update and saved </div>
 					</div>
-					<!-- Search feature patient -->
+					<!-- Delete patient success  -->
+					<div th:if="${deletePatientSucceed}" th:class="${alert}">
+						<div class="alert alert-success"> Patient deleted </div>
+					</div>
 					<br>
 					<h3>Welcome to mediscreen</h3>
 					<p>Patient quick search with first name or last name.</p>
 					<br>
+					<!-- Search feature patient -->
 					<form th:action="@{/patient/search}" method="get" >
-						<!-- Patient field -->
+						<!-- Patient name field -->
 						<div class="input-group input-group-sm mb-3">
 							<span class="input-group-text col-4 justify-content-center" id="inputGroup1"> First name </span>
 							<input type="text" class="form-control" name="firstName" id="firstName" placeholder="Enter a first name">
@@ -97,6 +101,11 @@
 								<br>
 								<!-- Save button -->
 								<button type="submit" class="btn col-5 btn-primary btn-sm"> Save update </button>
+							</form>
+							<br>
+							<!-- Delete button -->
+							<form th:action="@{/patient/delete}" th:method="post" th:object="${patient}">
+								<button type="submit" class="btn col-5 btn-danger btn-sm" name="patient" th:value="${patient.id}"> Delete </button>
 							</form>
 						</div>
 					</div>

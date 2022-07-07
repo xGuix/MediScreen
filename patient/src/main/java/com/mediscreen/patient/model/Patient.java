@@ -1,10 +1,8 @@
 package com.mediscreen.patient.model;
 
 import org.hibernate.annotations.DynamicUpdate;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
@@ -12,24 +10,19 @@ import java.sql.Date;
 @Table(name ="patients")
 public class Patient {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "patient_id", nullable = false)
     private Long id;
-
     @Column(name="firstname")
     private String firstName;
-
     @Column(name="lastname")
     private String lastName;
-
     @Column(name="birthdate")
     private Date birthdate;
-
     @Column(name="gender")
     private char gender;
-
     @Column(name="address")
     private String address;
-
     @Column(name="phone_number")
     private String phoneNumber;
 

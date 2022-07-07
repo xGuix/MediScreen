@@ -21,7 +21,7 @@
 		    <div class="collapse navbar-collapse" id="navbar">
 		      <div class="navbar-nav">
 				  <a class="nav-link" style="color:#FFFFFF" href="/patient"> SEARCH PATIENT </a>
-				  <a class="nav-link" style="color:#FFFFFF" href="/allPatients"> ADD/DELETE PATIENT </a>
+				  <a class="nav-link" style="color:#FFFFFF" href="/patient/allPatients"> ADD/DELETE PATIENT </a>
 		      </div>		     
 		    </div>
 		  </div>
@@ -31,65 +31,89 @@
 		<div class="container-fluid ">
 			<div class="row justify-content-md-center" >
 				<div class="col-lg-auto text-center">
+					<!-- Success message -->
+					<div th:if="${addPatientSuccess}" th:class="${alert}" >
+						<div class="alert alert-success" th:text="${addPatientSuccess}"></div>
+					</div>
+					<!-- Error message -->
+					<div th:if="${searchError}" th:class="${alert}" >
+						<div class="alert alert-danger" th:text="${searchError}"></div>
+					</div>
+					<!-- Error adding message -->
+					<div th:if="${addError}" th:class="${alert}" >
+						<div class="alert alert-danger" role="alert" th:text="${addError}"></div>
+					</div>
 					<br>
 					<!-- Search patient field form -->
-					<form th:action="@{/allPatients}" method="get">
+					<form th:action="@{/patient/allPatients}" method="get">
 						<!-- Table of actual friends list -->
 						<h3> PATIENTS LIST </h3>
 						<table class="table table-sm table-striped">
 							<thead class="table-light">
 								<tr>
+									<th scope="col" style="font-size:0.6em"> ID </th>
 									<th scope="col" style="font-size:0.6em"> FIRST NAME </th>
 									<th scope="col" style="font-size:0.6em"> LAST NAME </th>
 									<th scope="col" style="font-size:0.6em"> GENDER </th>
 									<th scope="col" style="font-size:0.6em"> ADDRESS </th>
 									<th scope="col" style="font-size:0.6em"> PHONE </th>
+									<th scope="col" style="font-size:0.6em"> ACTION </th>
 								</tr>
 							</thead>
 							<tbody th:each="patient: ${patientsList}" th:remove="tag">
 								<tr>
+									<td th:text="${patient.id}" style="font-size:0.9em"></td>
 									<td th:text="${patient.firstName}" style="font-size:0.9em"></td>
 									<td th:text="${patient.lastName}" style="font-size:0.9em"></td>
 									<td th:text="${patient.gender}" style="font-size:0.9em"></td>
 									<td th:text="${patient.address}" style="font-size:0.9em"></td>
 									<td th:text="${patient.phoneNumber}" style="font-size:0.9em"></td>
+									<td>
+										<div class="d-flex justify-content-center gap-3">
+											<form th:action="@{/patient/delete}" th:method="get" th:object="${patient}">
+												<button type="submit" name="patient" class="btn btn-danger btn-sm" th:value="${patient.id}"> Delete </button>
+											</form>
+										</div>
+									</td>
 								</tr>
 							</tbody>
 						</table>
-						<br><br>
-						<!-- Information feature -->
-						<p><strong> Search patient with first name or last name:</strong>
-							<br> If someone found, you will be able to update patient infos </p>
-						<!-- Search field feature -->
-						<div class="input-group mb-4">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="firstName"> First name </span>
-							</div>
-							<input type="text" class="form-control" aria-label="Sizing example input" placeholder="Enter first name">
-						</div>
-						<div class="input-group mb-4">
-						 	<div class="input-group-prepend">
-								<span class="input-group-text" id="lastName"> Last name </span>
-							</div>
-							<input type="text" class="form-control" aria-label="Sizing example input" placeholder="Enter last name">
-						</div>
-						<button type="submit" class="btn btn-primary col-5 mb-2"> Search </button>
 					</form>
-					<br>
-					<!-- Search result fields -->
-					<div th:if="${searchResult}" class="searchAccountResult">
-						<p><strong> PATIENTS FOUND : </strong></p>
-						<h6 th:text="|${searchResult.firstName} ${searchResult.lastName}|"></h6>
-						<br>
-						<!-- Add friend button -->
-						<p><strong> Add this user to your friends.</strong></p>
-						<form th:action="@{/patient}" method="post">
-							<div class="input-group flex-nowrap">
-								<input th:value="${searchResult.firstName}" name="firstName" type="firstName" class="form-control" placeholder="Enter first name">
-								<button type="submit" class="btn btn-primary"> Je ne sais pas </button>
-							</div>
-						</form>
-					</div>
+					<br><br>
+					<br><br>
+					<!-- Information feature -->
+					<h3> ADD PATIENT : </h3>
+					<p> Register all the patient information and save.</p>
+					<!-- Search patient field feature -->
+<!--					<form th:action="@{/patient/allPatients/add}" method="post" th:objet="${patient}">-->
+<!--						<div class="input-group input-group-sm mb-3">-->
+<!--							<span class="input-group-text col-4 justify-content-center"> First name </span>-->
+<!--							<input type="text" class="form-control" th:field="*{patient.firstName}" id="firstName" placeholder="Enter firstname">-->
+<!--						</div>-->
+<!--						<div class="input-group input-group-sm mb-3">-->
+<!--							<span class="input-group-text col-4 justify-content-center"> Last name </span>-->
+<!--							<input type="text" class="form-control" th:field="*{patient.lastName}" id="lastName" placeholder="Enter lastname">-->
+<!--						</div>-->
+<!--						<div class="input-group input-group-sm mb-3">-->
+<!--							<span class="input-group-text col-4 justify-content-center"> Birthdate </span>-->
+<!--							<input type="date" class="form-control" th:field="*{patient.birthdate}" id="birthdate">-->
+<!--						</div>-->
+<!--						<div class="input-group input-group-sm mb-3">-->
+<!--							<span class="input-group-text col-4 justify-content-center"> Gender </span>-->
+<!--							<input type="text" class="form-control" th:field="*{patient.gender}" id="gender" placeholder="M or F">-->
+<!--						</div>-->
+<!--						<div class="input-group input-group-sm mb-3">-->
+<!--							<span class="input-group-text col-4 justify-content-center"> Address </span>-->
+<!--							<input type="text" class="form-control" th:field="*{patient.address}" id="address" placeholder="Enter address">-->
+<!--						</div>-->
+<!--						<div class="input-group input-group-sm mb-3">-->
+<!--							<span class="input-group-text col-4 justify-content-center"> Phone number </span>-->
+<!--							<input type="text" class="form-control" th:field="*{patient.phoneNumber}" id="phoneNumber" placeholder="Enter phone">-->
+<!--						</div>-->
+<!--						<br>-->
+<!--						&lt;!&ndash; Add button &ndash;&gt;-->
+<!--						<button type="submit" class="btn col-5 btn-primary btn-sm"> Add patient </button>-->
+<!--					</form>-->
 			 	</div>
 			</div>
 		</div>
