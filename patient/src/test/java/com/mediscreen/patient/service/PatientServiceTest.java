@@ -8,15 +8,19 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.ui.Model;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 @SpringBootTest
+@ActiveProfiles("test")
 public class PatientServiceTest {
     @MockBean
     IPatientRepository patientRepository;
@@ -24,7 +28,7 @@ public class PatientServiceTest {
     PatientService patientService;
     static Patient patient;
     static List<Patient> patientsList = new ArrayList<>();
-    Model model;
+    static Model model;
 
     @BeforeAll
     static void setupTest(){
@@ -49,8 +53,10 @@ public class PatientServiceTest {
     @Test
     void findPatientByNameTest()
     {
+        model.addAttribute("patientFound", patientsList);
         Mockito.when(patientRepository.getByfirstName(patient.getFirstName())).thenReturn(patientsList);
         Mockito.when(patientRepository.getBylastName(patient.getLastName())).thenReturn(patientsList);
-        assertEquals(patientsList ,patientService.getByPatientName(model.addAttribute(patientsList) ,"Rosa", ""));
+
+        assertEquals(patientsList ,patientService.getByPatientName(model ,"Rosa", ""));
     }
 }
