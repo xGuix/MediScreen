@@ -20,14 +20,13 @@
 		    </button>
 		    <div class="collapse navbar-collapse" id="navbar">
 		      <div class="navbar-nav">
-				  <a class="nav-link" style="color:#FFFFFF" href="/patient"> SEARCH PATIENT </a>
-				  <a class="nav-link" style="color:#FFFFFF" href="/patient/allPatients"> ADD/DELETE PATIENT </a>
+				  <a class="nav-link" style="color:#FFFFFF" href="/patient"> PATIENT </a>
+				  <a class="nav-link" style="color:#FFFFFF" href="/allPatients"> LIST </a>
 		      </div>		     
 		    </div>
 		  </div>
 		</nav>
 		<br><br>
-		<br><br><br>
 		<div class="container-fluid ">
 			<div class="row justify-content-md-center" >
 				<div class="col-lg-auto text-center">
@@ -65,6 +64,7 @@
 					<!-- Search result fields -->
 					<div th:if="${patientFound}" class="searchPatientResult">
 						<div th:each="patient : ${patientFound}">
+							<br>
 							<!-- Patient found : update available -->
 							<h3> PATIENT FOUND : </h3>
 							<p> Update the patient information and save.</p>
@@ -107,6 +107,7 @@
 							<form th:action="@{/patient/delete}" th:method="post" th:object="${patient}">
 								<button type="submit" class="btn col-5 btn-danger btn-sm" name="patient" th:value="${patient.id}"> Delete </button>
 							</form>
+							<br><br>
 						</div>
 					</div>
 				</div>

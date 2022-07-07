@@ -78,7 +78,7 @@ public class PatientController {
      * Request All List of patients
      * @return allPatients page
      */
-    @GetMapping("/patient/allPatients")
+    @GetMapping("/allPatients")
     public String allPatients(Model model) {
         logger.info("Send service request for all patients list");
         List<Patient> allPatients = patientService.getAllPatients();
@@ -90,10 +90,10 @@ public class PatientController {
      * Request to add new patient
      * @return allPatients page
      */
-    @PostMapping("/patient/add")
+    @PostMapping("/allPatients/add")
     public String patientAdd(Model model, Patient patient) {
         logger.info("Send new patient to add named: {} {}", patient.getFirstName(), patient.getLastName());
         patientService.patientAdd(model,patient);
-        return "allPatients";
+        return "redirect:/allPatients";
     }
 }

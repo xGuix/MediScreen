@@ -1,5 +1,6 @@
 package com.mediscreen.patient.model;
 
+import com.sun.istack.NotNull;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -13,16 +14,22 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "patient_id", nullable = false)
     private Long id;
+    @NotNull
     @Column(name="firstname")
     private String firstName;
+    @NotNull
     @Column(name="lastname")
     private String lastName;
+    @NotNull
     @Column(name="birthdate")
     private Date birthdate;
+    @NotNull
     @Column(name="gender")
     private char gender;
+    @NotNull
     @Column(name="address")
     private String address;
+    @NotNull
     @Column(name="phone_number")
     private String phoneNumber;
 
