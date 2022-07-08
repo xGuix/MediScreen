@@ -1,5 +1,6 @@
 package com.mediscreen.patient.controller;
 
+import com.mediscreen.patient.exception.PatientNotFoundException;
 import com.mediscreen.patient.model.Patient;
 import com.mediscreen.patient.service.PatientService;
 import org.apache.logging.log4j.LogManager;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- *  Main App Thymeleaf controller
+ *  Patient Thymeleaf controller
  */
 @Controller
 public class PatientController {
@@ -46,7 +47,7 @@ public class PatientController {
      * @return patient page
      */
     @GetMapping("/patient/search")
-    public  String patientSearch(Model model, String firstName, String lastName) {
+    public  String patientSearch(Model model, String firstName, String lastName) throws PatientNotFoundException {
         logger.info("Send search patient named: {} {}", firstName, lastName);
         patientService.getByPatientName(model,firstName,lastName);
         return "patient";

@@ -1,5 +1,6 @@
 package com.mediscreen.patient.service;
 
+import com.mediscreen.patient.exception.PatientNotFoundException;
 import com.mediscreen.patient.model.Patient;
 import com.mediscreen.patient.repository.IPatientRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -44,14 +45,14 @@ public class PatientServiceTest {
     }
 
     @Test
-    void findPatientByIdTest()
+    void findPatientByIdTest() throws PatientNotFoundException
     {
         Mockito.when(patientRepository.getReferenceById(1L)).thenReturn(patient);
         assertEquals(patient ,patientService.getPatientById(1L));
     }
 
     @Test
-    void findPatientByNameTest()
+    void findPatientByNameTest() throws PatientNotFoundException
     {
         model.addAttribute("patientFound", patientsList);
         Mockito.when(patientRepository.getByfirstName(patient.getFirstName())).thenReturn(patientsList);

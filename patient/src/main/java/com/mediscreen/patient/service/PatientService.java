@@ -1,5 +1,6 @@
 package com.mediscreen.patient.service;
 
+import com.mediscreen.patient.exception.PatientNotFoundException;
 import com.mediscreen.patient.model.Patient;
 import com.mediscreen.patient.repository.IPatientRepository;
 import org.apache.logging.log4j.LogManager;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +31,13 @@ public class PatientService {
      * Request All patient List
      * @return List Patient The patients list
      */
-    public Patient getPatientById(Long id) {
+    public Patient getPatientById(Long id) throws PatientNotFoundException {
         logger.info("Get a patients with id: {}", id);
-        return patientRepository.getReferenceById(id);
+        Patient patient = patientRepository.getPatientById(id);
+        if(patient==null) {
+            throw new PatientNotFoundException("This id does not exists as patient");
+        }
+        return patient;
     }
 
     /**
@@ -43,7 +47,7 @@ public class PatientService {
      * @param lastName String the last name
      * @return List Patient The patients found list
      */
-    public List<Patient> getByPatientName(Model model, String firstName, String lastName) {
+    public List<Patient> getByPatientName(Model model, String firstName, String lastName) throws PatientNotFoundException {
         logger.info("Get a patient by name: {} {}", firstName,lastName);
         List<Patient> patientsList = new ArrayList<>();
         List<Patient> firstNameList = patientRepository.getByfirstName(firstName);
@@ -62,6 +66,7 @@ public class PatientService {
         }
         else if (firstNameList.size() == 0 && lastNameList.size() == 0){
             model.addAttribute("noPatientFound", "Patient does not exists in database. Try again.");
+            throw new PatientNotFoundException("This name does not exists as patient");
         }
         return patientsList;
     }
@@ -98,5 +103,18 @@ public class PatientService {
     public void patientDelete(Model model, Patient patient) {
         patientRepository.delete(patient);
         model.addAttribute("deletePatientSucceed", "Patient successfully deleted");
+    }
+
+    /**
+     * Request All patient List
+     * @return List Patient The patients list
+     */
+    public void deletePatientById(Long id) throws PatientNotFoundException {
+        logger.info("Delete patients with id: {}", id);
+        Patient patient = patientRepository.getPatientById(id);
+        if(patient==null) {
+            throw new PatientNotFoundException("This id does not exists as patient");
+        }
+        patientRepository.delete(patient);
     }
 }
