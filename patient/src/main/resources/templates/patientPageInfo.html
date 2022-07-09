@@ -32,8 +32,9 @@
 				<div class="col-lg-auto text-center">
 					<br>
 					<h3>PATIENT FILE:</h3>
-					<p>All information, note and assessment is in the file</p>
-					<br>
+					<p>All information, note and assessment is in the file :</p>
+                    <a type="submit" class="btn col-3 btn-primary" href="/note"> Add note </a>
+                    <p>All notes here</p>
                     <!-- Search result fields -->
                     <div th:if="${patientFound}" class="searchPatientResult">
                         <div th:each="patient : ${patientFound}">
@@ -84,5 +85,9 @@
 				</div>
 			</div>
 		</div>
+        <br>
+        <div class="row justify-content-md-center"  >
+            <a type="submit" class="btn col-3 btn-primary btn-sm center" href="/allPatients"> Back to list </a>
+        </div>
 	</body>
 </html>

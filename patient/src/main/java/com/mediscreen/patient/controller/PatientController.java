@@ -85,7 +85,7 @@ public class PatientController {
     public String patientDelete(Model model, Patient patient) {
         logger.info("Send patient to delete named: {} {}", patient.getFirstName(), patient.getLastName());
         patientService.patientDelete(model,patient);
-        return "allPatients";
+        return "redirect:/allPatients";
     }
 
     /**

@@ -69,8 +69,8 @@
 									<td th:text="${patient.phoneNumber}" style="font-size:0.9em;vertical-align: middle;"></td>
 									<td>
 										<div class="btn-group" role="group">
-											<form th:action="@{/patient/id}" th:method="get" th:object="${patient}">
-												<button type="submit" name="patient" class="btn btn-dark btn-sm" style="size:25%;" th:value="${patient.id}"> File </button>
+											<form th:action="@{/patient/id}" th:method="get" th:object="${id}">
+												<button type="submit" name="id" class="btn btn-dark btn-sm" style="size:25%;" th:value="${patient.id}"> File </button>
 											</form>
 											&ensp;
 											<form th:action="@{/patient/delete}" th:method="get" th:object="${patient}">
