@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -40,9 +41,9 @@ public class ApiController {
      * @return patient list of matching search
      */
     @GetMapping("/api/patient/search")
-    public List<Patient> patientsByName(Model model, String firstName, String lastName) throws PatientNotFoundException {
+    public Collection<Patient> patientsByName(Model model, String firstName, String lastName) throws PatientNotFoundException {
         logger.info("Send search patient named: {} {}", firstName, lastName);
-        List<Patient> patientsMatch = patientService.getByPatientName(model,firstName,lastName);
+        Collection<Patient> patientsMatch = patientService.getByPatientName(model,firstName,lastName);
         return patientsMatch;
     }
 
@@ -52,7 +53,7 @@ public class ApiController {
      * @return patient The patient with id
      */
     @GetMapping("/api/patient")
-    public Patient patientsById(Long id) throws PatientNotFoundException {
+    public Patient patientById(Long id) throws PatientNotFoundException {
         logger.info("Send search patient with id: {}", id);
         Patient patientById = patientService.getPatientById(id);
         return patientById;

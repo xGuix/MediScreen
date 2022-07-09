@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PatientService {
@@ -47,28 +46,30 @@ public class PatientService {
      * @param lastName String the last name
      * @return List Patient The patients found list
      */
-    public List<Patient> getByPatientName(Model model, String firstName, String lastName) throws PatientNotFoundException {
+    public List<Patient> getByPatientName(Model model, String firstName, String lastName) {
         logger.info("Get a patient by name: {} {}", firstName,lastName);
-        List<Patient> patientsList = new ArrayList<>();
+        List<Patient> patientList = new ArrayList<>();
         List<Patient> firstNameList = patientRepository.getByfirstName(firstName);
         if (firstNameList.size()!=0) {
             for (Patient pfn : firstNameList){
-                patientsList.add(pfn);
-                model.addAttribute("patientFound", patientsList);
+                patientList.add(pfn);
+                model.addAttribute("patientFound", patientList);
             }
         }
         List<Patient> lastNameList = patientRepository.getBylastName(lastName);
         if (lastNameList.size() != 0) {
             for (Patient pln : lastNameList){
-                patientsList.add(pln);
-                model.addAttribute("patientFound", patientsList);
+                patientList.add(pln);
+                model.addAttribute("patientFound", patientList);
             }
         }
         else if (firstNameList.size() == 0 && lastNameList.size() == 0){
             model.addAttribute("noPatientFound", "Patient does not exists in database. Try again.");
-            throw new PatientNotFoundException("This name does not exists as patient");
         }
-        return patientsList;
+        HashSet duplicationCleanUp=new HashSet<>();
+        patientList.removeIf(p-> !duplicationCleanUp.add(p.getId()));
+        List<Patient> noDuplicatePatientList = new ArrayList<>(new HashSet<>(duplicationCleanUp));
+        return noDuplicatePatientList;
     }
 
     /**

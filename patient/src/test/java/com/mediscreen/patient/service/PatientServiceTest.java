@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -52,7 +51,7 @@ public class PatientServiceTest {
     }
 
     @Test
-    void findPatientByNameTest() throws PatientNotFoundException
+    void findPatientByNameTest()
     {
         model.addAttribute("patientFound", patientsList);
         Mockito.when(patientRepository.getByfirstName(patient.getFirstName())).thenReturn(patientsList);

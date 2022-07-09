@@ -28,7 +28,7 @@ public class PatientController {
      */
     @RequestMapping("/")
     public String index() {
-        logger.info("Get index");
+        logger.info("Get homepage with quick search");
         return "index";
     }
 
@@ -43,11 +43,24 @@ public class PatientController {
     }
 
     /**
+     * Request patient id page
+     * @param id Long Patient id
+     * @return the page of patient
+     */
+    @GetMapping("/patient/id")
+    public  String patientPageInfo(Model model, Long id) throws PatientNotFoundException {
+        logger.info("Get patient page with id: {}", id);
+        Patient patient = patientService.getPatientById(id);
+        model.addAttribute("patientFound", patient);
+        return "patientPageInfo";
+    }
+
+    /**
      * Request patient to get information
      * @return patient page
      */
     @GetMapping("/patient/search")
-    public  String patientSearch(Model model, String firstName, String lastName) throws PatientNotFoundException {
+    public  String patientSearch(Model model, String firstName, String lastName) {
         logger.info("Send search patient named: {} {}", firstName, lastName);
         patientService.getByPatientName(model,firstName,lastName);
         return "patient";
@@ -72,7 +85,7 @@ public class PatientController {
     public String patientDelete(Model model, Patient patient) {
         logger.info("Send patient to delete named: {} {}", patient.getFirstName(), patient.getLastName());
         patientService.patientDelete(model,patient);
-        return "patient";
+        return "allPatients";
     }
 
     /**
