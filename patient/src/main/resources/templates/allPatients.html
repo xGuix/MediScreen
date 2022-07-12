@@ -44,7 +44,7 @@
 					</div>
 					<br>
 					<!-- Search patient field form -->
-					<form th:action="@{/allPatients}" method="get">
+					<form th:action="@{/allPatients}" method="get" th:object="${patient}">
 						<!-- Table of actual friends list -->
 						<h3> PATIENTS LIST </h3>
 						<table class="table table-sm table-striped">
@@ -68,13 +68,17 @@
 									<td th:text="${patient.address}" style="font-size:0.9em;vertical-align: middle;"></td>
 									<td th:text="${patient.phoneNumber}" style="font-size:0.9em;vertical-align: middle;"></td>
 									<td>
-										<div class="btn-group" role="group">
-											<form th:action="@{/patient/id}" th:method="get" th:object="${id}">
-												<button type="submit" name="id" class="btn btn-dark btn-sm" style="size:25%;" th:value="${patient.id}"> File </button>
+										<div class="d-flex" role="group">
+											<a th:href="@{/patient/id(id=${patient.id})}" name="id" class="btn btn-primary btn-sm"> Patient file </a>
+											&nbsp;
+											<form th:action="@{/patient/id}" th:method="get">
+												<button type="submit" name="id" class="btn btn-primary btn-sm" th:value="${patient.id}"> File </button>
 											</form>
-											&ensp;
-											<form th:action="@{/patient/delete}" th:method="get" th:object="${patient}">
-												<button type="submit" name="patient" class="btn btn-danger btn-sm" style="size:25%;" th:value="${patient.id}"> Delete </button>
+											&nbsp;
+											<a th:href="@{/patient/delete(id=${patient.id})}" name="id" class="btn btn-danger btn-sm"> Delete </a>
+											&nbsp;
+											<form th:action="@{/patient/delete}" th:method="get">
+												<button type="submit" name="patient" class="btn btn-danger btn-sm" th:value="${patient.id}"> Delete </button>
 											</form>
 										</div>
 									</td>
