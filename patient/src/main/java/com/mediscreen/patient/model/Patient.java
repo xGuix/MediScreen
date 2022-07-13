@@ -4,12 +4,13 @@ import com.sun.istack.NotNull;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @DynamicUpdate
 @Table(name ="patients")
-public class Patient {
+public class Patient implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "patient_id", nullable = false)

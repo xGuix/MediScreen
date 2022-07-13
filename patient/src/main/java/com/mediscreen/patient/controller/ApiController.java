@@ -41,7 +41,7 @@ public class ApiController {
      * @return patient list of matching search
      */
     @GetMapping("/api/patient/search")
-    public Collection<Patient> patientsByName(Model model, String firstName, String lastName) throws PatientNotFoundException {
+    public Collection<Patient> patientsByName(Model model, String firstName, String lastName) {
         logger.info("Send search patient named: {} {}", firstName, lastName);
         Collection<Patient> patientsMatch = patientService.getByPatientName(model,firstName,lastName);
         return patientsMatch;

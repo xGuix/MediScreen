@@ -18,17 +18,18 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 @SpringBootTest
 @ActiveProfiles("test")
 public class PatientServiceTest {
-    @MockBean
-    IPatientRepository patientRepository;
+
     @Autowired
     PatientService patientService;
+
+    @MockBean
+    IPatientRepository patientRepository;
+
     static Patient patient;
     static List<Patient> patientsList = new ArrayList<>();
-    static Model model;
 
     @BeforeAll
     static void setupTest(){

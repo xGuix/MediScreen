@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 
 import java.util.*;
 
-@Service
+@Service("PatientService")
 public class PatientService {
     private static Logger logger = LogManager.getLogger(PatientService.class);
     @Autowired
