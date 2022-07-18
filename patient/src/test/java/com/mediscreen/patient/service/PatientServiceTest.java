@@ -16,7 +16,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -28,12 +29,17 @@ public class PatientServiceTest {
     @MockBean
     IPatientRepository patientRepository;
 
+    @MockBean
+    Model model;
+
     static Patient patient;
+    static Patient patient2;
     static List<Patient> patientsList = new ArrayList<>();
 
     @BeforeAll
     static void setupTest(){
-        patient = new Patient(1L,"Rosa","Bonheur", Date.valueOf("1966-12-31"), 'F',"1 Brookside St","100-222-3333");
+        patient = new Patient(0L,"Guix","Debrens", Date.valueOf("0001-12-25"), 'M', "333 Heaven Street", "06-666-6666");
+        patient2 = new Patient(1L,"Rosa","Bonheur", Date.valueOf("1966-12-31"), 'F',"1 Brookside St","100-222-3333");
         patientsList.add(patient);
     }
 
@@ -41,24 +47,99 @@ public class PatientServiceTest {
     void findAllPatientsListTest()
     {
         Mockito.when(patientRepository.findAll()).thenReturn(patientsList);
-        assertEquals(patientsList ,patientService.getAllPatients());
+        List<Patient> patientListTest = patientService.getAllPatients();
+        assertEquals(patientsList , patientListTest);
     }
 
     @Test
     void findPatientByIdTest() throws PatientNotFoundException
     {
-        Mockito.when(patientRepository.getPatientById(1L)).thenReturn(patient);
-        assertEquals(patient ,patientService.getPatientById(1L));
+        Mockito.when(patientRepository.getPatientById(0L)).thenReturn(patient);
+        Patient patientTest = patientService.getPatientById(0L);
+        assertEquals(patient , patientTest);
     }
 
-//    @Test
-//    void findPatientByNameTest()
-//    {
-//        Mockito.when(patientRepository.getByfirstName(patient.getFirstName())).thenReturn(patientsList);
-//        Mockito.when(patientRepository.getBylastName(patient.getLastName())).thenReturn(patientsList);
-//
-//        model.addAttribute("patientFound", patientsList);
-//
-//        assertEquals(patientsList ,patientService.getByPatientName(model ,"Rosa", ""));
-//    }
+    @Test
+    void findPatientByIdReturnNotFoundExceptionTest() throws PatientNotFoundException
+    {
+        Mockito.when(patientRepository.getPatientById(1L)).thenReturn(null);
+        assertThrows(PatientNotFoundException.class,() -> patientService.getPatientById(1L));
+    }
+
+    @Test
+    void findPatientByNameWithFirstNameTest()
+    {
+        Mockito.when(patientRepository.getByfirstName(patient.getFirstName())).thenReturn(patientsList);
+        Mockito.when(patientRepository.getBylastName(patient.getLastName())).thenReturn(null);
+
+        List<Patient> patientListTest = patientService.getByPatientName(model,"Guix", "");
+
+        assertEquals(patientsList.size() ,patientListTest.size());
+    }
+
+    @Test
+    void findPatientByNameWithLastNameTest()
+    {
+        Mockito.when(patientRepository.getByfirstName(patient.getFirstName())).thenReturn(null);
+        Mockito.when(patientRepository.getBylastName(patient.getLastName())).thenReturn(patientsList);
+
+        List<Patient> patientListTest = patientService.getByPatientName(model, "", "Debrens");
+
+        assertEquals(patientsList.size() ,patientListTest.size());
+    }
+
+    @Test
+    void findPatientByNameWrongNameReturnNotFoundTest()
+    {
+        Mockito.when(patientRepository.getByfirstName(patient.getFirstName())).thenReturn(null);
+        Mockito.when(patientRepository.getBylastName(patient.getLastName())).thenReturn(null);
+
+        List<Patient> patientListTest = patientService.getByPatientName(model, "x", "x");
+
+        assertEquals(0,patientListTest.size());
+    }
+
+    @Test
+    void patientUpdateTest()
+    {
+        Patient patientUpdate = new Patient(0L,"G","D", Date.valueOf("0001-12-25"), 'T', "Address update test", "000-000-0000");
+        Mockito.when(patientRepository.saveAndFlush(patient)).thenReturn(patientUpdate);
+        Patient patientUpdated = patientService.patientUpdate(model, patientUpdate);
+        assertEquals(patientUpdate , patientUpdated);
+    }
+
+    @Test
+    void patientAddTest()
+    {
+        Mockito.when(patientRepository.saveAndFlush(patient)).thenReturn(patient2);
+        Patient patientAdded = patientService.patientAdd(model, patient2);
+        assertEquals(patient2 , patientAdded);
+    }
+
+    @Test
+    void patientDeleteTest()
+    {
+        patientsList.add(patient2);
+        patientService.patientDelete(model, patient2);
+
+        assertTrue(patientsList.remove(patient2));
+        verify(patientRepository, Mockito.times(1)).delete(patient2);
+    }
+
+    @Test
+    void patientDeleteByIdTest() throws PatientNotFoundException {
+        patientsList.add(patient2);
+        Mockito.when(patientRepository.getPatientById(1L)).thenReturn(patient2);
+        patientService.deletePatientById(patient2.getId());
+
+        assertTrue(patientsList.remove(patient2));
+        verify(patientRepository, Mockito.times(1)).getPatientById(patient2.getId());
+        verify(patientRepository, Mockito.times(1)).delete(patient2);
+    }
+
+    @Test
+    void patientDeleteByIdReturnPatientNotFoundExceptionTest() throws PatientNotFoundException {
+        Mockito.when(patientRepository.getPatientById(1L)).thenReturn(null);
+        assertThrows(PatientNotFoundException.class,() -> patientService.deletePatientById(1L));
+    }
 }

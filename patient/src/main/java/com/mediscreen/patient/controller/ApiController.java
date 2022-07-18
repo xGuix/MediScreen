@@ -101,7 +101,7 @@ public class ApiController {
      * @param id Patient to delete
      */
     @DeleteMapping("/api/patient/deleteId")
-    public void patientDelete(Long id) throws PatientNotFoundException {
+    public void patientDeleteById(Long id) throws PatientNotFoundException {
         logger.info("Send patient id to delete: {}", id);
         patientService.deletePatientById(id);
     }

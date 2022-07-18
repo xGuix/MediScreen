@@ -19,7 +19,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mediscreen.patient.JsonTestMapper.asJsonString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -40,7 +39,7 @@ public class ApiControllerTest {
     PatientService patientService;
 
     static Patient patient;
-    static Date date = new Date(0000,12,25);
+
     static List<Patient> patientList;
 
     static Model model;
@@ -48,13 +47,7 @@ public class ApiControllerTest {
     @BeforeAll
     static void setupTest(){
         patientList = new ArrayList<>();
-        patient = new Patient(0L,"Guix","Debrens",date,'M',"333 Heaven Street","06-666-6666");
-//        patient.setFirstName("Guix");
-//        patient.setLastName("Debrens");
-//        patient.setBirthdate(date);
-//        patient.setGender('M');
-//        patient.setAddress("333 Heaven Street");
-//        patient.setPhoneNumber("06-666-6666");
+        patient = new Patient(0L,"Guix","Debrens", Date.valueOf("0001-12-25"), 'M', "333 Heaven Street", "06-666-6666");
         patientList.add(patient);
     }
 
@@ -65,7 +58,7 @@ public class ApiControllerTest {
         mockMvc.perform(get("/api/allPatients")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(asJsonString(patientList)));
+                .andExpect(content().string(objectMapper.writeValueAsString(patientList)));
     }
 
     @Test
@@ -76,7 +69,7 @@ public class ApiControllerTest {
                         .param("firstName", "Guix")
                         .param("lastName", "Debrens"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(asJsonString(patientList)));
+                .andExpect(content().string(objectMapper.writeValueAsString(patientList)));
     }
 
     @Test
@@ -87,7 +80,7 @@ public class ApiControllerTest {
                         .param("id", "0")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(asJsonString(patient)));
+                .andExpect(content().string(objectMapper.writeValueAsString(patient)));
     }
 
     @Test
@@ -99,7 +92,7 @@ public class ApiControllerTest {
                         .content(objectMapper.writeValueAsString(patient))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(asJsonString(patient)));
+                .andExpect(content().string(objectMapper.writeValueAsString(patient)));
     }
 
     @Test
@@ -111,7 +104,7 @@ public class ApiControllerTest {
                         .content(objectMapper.writeValueAsString(patient))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(asJsonString(patient)));
+                .andExpect(content().string(objectMapper.writeValueAsString(patient)));
     }
 
     @Test

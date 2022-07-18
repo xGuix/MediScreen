@@ -1,7 +1,9 @@
 package com.mediscreen.patient.service;
 
+import com.mediscreen.patient.dto.PatientNoteDto;
 import com.mediscreen.patient.exception.PatientNotFoundException;
 import com.mediscreen.patient.model.Patient;
+import com.mediscreen.patient.proxy.NoteProxy;
 import com.mediscreen.patient.repository.IPatientRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +15,7 @@ import java.util.*;
 
 @Service("PatientService")
 public class PatientService {
+
     private static Logger logger = LogManager.getLogger(PatientService.class);
     @Autowired
     IPatientRepository patientRepository;

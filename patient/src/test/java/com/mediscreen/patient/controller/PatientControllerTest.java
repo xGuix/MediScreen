@@ -33,7 +33,7 @@ public class PatientControllerTest {
 
     @BeforeAll
     static void setupTest(){
-        patient = new Patient(0L,"Guix","Debrens", Date.valueOf("0001-12-01"), 'M', "333 Heaven Street", "06-666-6666");
+        patient = new Patient(0L,"Guix","Debrens", Date.valueOf("0001-12-25"), 'M', "333 Heaven Street", "06-666-6666");
     }
 
     @Test
