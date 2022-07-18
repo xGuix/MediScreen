@@ -28,10 +28,21 @@ public class NoteService {
 
     /**
      * Request patient notes list
+     * @param patientId Integer The patient id
      * @return patientNotes PatientNoteDto The patient notes list
      */
     public List<PatientNoteDto> getPatientNotes(Integer patientId) {
         logger.info("Get all patients notes list");
         return noteProxy.getAllPatientNotesWithPatientId(patientId);
+    }
+
+    /**
+     * Request for adding patient note
+     * @param newNote PatientNote The patient note
+     * @return PatientNote The patient notes added
+     */
+    public PatientNoteDto addNewNote(PatientNoteDto newNote) {
+        logger.info("Add patient note send to repository with note: {}", newNote);
+        return noteProxy.addNewNote(newNote);
     }
 }

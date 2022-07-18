@@ -2,9 +2,10 @@ package com.mediscreen.notes.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Document(collection = "notes")
 public class PatientNote {
@@ -15,12 +16,14 @@ public class PatientNote {
 
     @NotBlank(message = "Notes cannot be blank!")
     private String note;
-    private LocalDateTime creationDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date creationDate;
 
     public PatientNote()
     {}
 
-    public PatientNote(String id, Integer patientId, String note, LocalDateTime creationDate) {
+    public PatientNote(String id, Integer patientId, String note, Date creationDate) {
         this.id = id;
         this.patientId = patientId;
         this.note = note;
@@ -51,11 +54,11 @@ public class PatientNote {
         this.note = note;
     }
 
-    public LocalDateTime getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 }

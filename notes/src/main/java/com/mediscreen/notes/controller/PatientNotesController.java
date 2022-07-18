@@ -1,6 +1,5 @@
 package com.mediscreen.notes.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mediscreen.notes.model.PatientNote;
 import com.mediscreen.notes.service.PatientNotesService;
 import org.apache.logging.log4j.LogManager;
@@ -32,8 +31,8 @@ public class PatientNotesController {
     }
 
     /**
-     * Request list of all patients notes
-     * @return patientsNotesList List of all patients notes
+     * Request list of all patients notes to service
+     * @return ResponseEntity patientsNotesList List of all patients notes
      */
     @GetMapping("/allPatientsNotes")
     public ResponseEntity<List<PatientNote>> getAllPatientNotes(){
@@ -49,9 +48,9 @@ public class PatientNotesController {
     }
 
     /**
-     * Request list of patient notes
+     * Request list of patient notes to service
      * @param patientId Integer The patient id
-     * @return patientNotesList List of patient notes
+     * @return ResponseEntity patientNotesList List of patient notes
      */
     @GetMapping("/patientNotes")
     public ResponseEntity<List<PatientNote>> getAllPatientNotesWithPatientId(@RequestParam Integer patientId){
@@ -66,18 +65,34 @@ public class PatientNotesController {
         }
     }
 
-//    @PostMapping("/patientNotes")
-//    public ResponseEntity<PatientNote> addNewNote(@RequestBody PatientNote newNote) {
-//        return new ResponseEntity<>(patientNotesService.addNewNote(newNote), HttpStatus.CREATED);
-//    }
-//
-//    @PutMapping("/patientNotes")
-//    public ResponseEntity<PatientNote> updateNote(@RequestBody PatientNote updateNote){
-//        return new ResponseEntity<>(patientNotesService.updateNote(updateNote), HttpStatus.OK);
-//    }
-//
-//    @DeleteMapping("/patientNotes")
-//    public ResponseEntity<PatientNote> deleteNote(@RequestParam String id){
-//        return new ResponseEntity<>(patientNotesService.deleteNote(id), HttpStatus.OK);
-//    }
+    /**
+     * Request for adding patient note to service
+     * @param newNote PatientNote The patient note
+     * @return ResponseEntity PatientNote The patient notes added
+     */
+    @PostMapping(value = "/patientNotes")
+    public ResponseEntity<PatientNote> addNewNote(@RequestBody PatientNote newNote) {
+        return new ResponseEntity<>(patientNotesService.addNewNote(newNote), HttpStatus.CREATED);
+    }
+
+    /**
+     * Request for updating patient note to service
+     * @param updateNote PatientNote The patient note
+     * @return ResponseEntity PatientNote The patient notes updated
+     */
+    @PutMapping("/patientNotes")
+    public ResponseEntity<PatientNote> updateNote(@RequestBody PatientNote updateNote){
+        return new ResponseEntity<>(patientNotesService.updateNote(updateNote), HttpStatus.OK);
+    }
+
+    /**
+     * Request for updating patient note to service
+     * @param id String The patient note to delete
+     * @return ResponseEntity PatientNote HttpStatus.OK
+     */
+    @DeleteMapping("/patientNotes")
+    public ResponseEntity<PatientNote> deleteNote(@RequestParam String id){
+        patientNotesService.deleteNote(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -28,7 +28,7 @@ public class PatientNotesService {
     }
 
     /**
-     * Request All List of patient notes
+     * Request All List of patient notes to repository
      * @return patientNotesList List of all patient notes
      */
     public List<PatientNote> getAllPatientNote() {
@@ -37,12 +37,41 @@ public class PatientNotesService {
     }
 
     /**
-     * Request list of patient notes
+     * Request list of patient notes to repository
      * @param patientId Integer The patient id
      * @return patientNotesList List of patient notes
      */
     public List<PatientNote> getAllPatientNotesWithPatientId(Integer patientId) {
         logger.info("Get patient notes send to repository with id: {}", patientId);
         return patientNotesRepository.getPatientNotesListByPatientId(patientId);
+    }
+
+    /**
+     * Request for adding patient note to repository
+     * @param newNote PatientNote The patient note
+     * @return PatientNote The patient notes added
+     */
+    public PatientNote addNewNote(PatientNote newNote) {
+        logger.info("Add patient note send to repository with note: {}", newNote);
+        return patientNotesRepository.insert(newNote);
+    }
+
+    /**
+     * Request for updating patient note to repository
+     * @param updateNote PatientNote The patient note
+     * @return PatientNote The patient notes updated
+     */
+    public PatientNote updateNote(PatientNote updateNote) {
+        logger.info("Update patient note send to repository with note: {}", updateNote);
+        return patientNotesRepository.save(updateNote);
+    }
+
+    /**
+     * Request for deleting patient note to repository
+     * @param id String The patient id
+     */
+    public void deleteNote(String id) {
+        patientNotesRepository.deleteById(id);
+        logger.info("Deleted note with id: {}", id);
     }
 }
