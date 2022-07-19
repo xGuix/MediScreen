@@ -1,11 +1,14 @@
 package com.mediscreen.patient.controller;
 
+import com.mediscreen.patient.dto.PatientNoteDto;
 import com.mediscreen.patient.exception.PatientNotFoundException;
 import com.mediscreen.patient.model.Patient;
+import com.mediscreen.patient.service.NoteService;
 import com.mediscreen.patient.service.PatientService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +24,9 @@ public class ApiController {
 
     @Autowired
     PatientService patientService;
+
+    @Autowired
+    NoteService noteService;
 
     /**
      * Request All List of patients
@@ -104,5 +110,51 @@ public class ApiController {
     public void patientDeleteById(Long id) throws PatientNotFoundException {
         logger.info("Send patient id to delete: {}", id);
         patientService.deletePatientById(id);
+    }
+
+    /**
+     * Request to find all patient notes
+     * @param patientId Integer Patient id
+     * @return patientNoteList Notes list for patient
+     */
+    @GetMapping("/api/patient/notes")
+    public List<PatientNoteDto> getPatientNotes(@RequestParam Integer patientId) {
+        logger.info("Send search notes for patient id: {}", patientId);
+        List<PatientNoteDto> patientNoteList = noteService.getPatientNotes(patientId);
+        return patientNoteList;
+    }
+
+    /**
+     * Request adding note to patient
+     * @param newNote PatientNoteDto new note
+     * @return addedNote the new note added
+     */
+    @PostMapping("/api/patient/notes/add")
+    public PatientNoteDto addPatientNote(@RequestBody PatientNoteDto newNote) {
+        logger.info("Send new note: {}", newNote);
+        PatientNoteDto addedNote = noteService.addNewNote(newNote);
+        return addedNote;
+    }
+
+    /**
+     * Request updating note to patient
+     * @param updateNote PatientNoteDto update note
+     * @return patientPageInfo page
+     */
+    @PutMapping("/api/patient/notes/update")
+    public PatientNoteDto updatePatientNote(@RequestBody PatientNoteDto updateNote) {
+        logger.info("Send update note: {}", updateNote);
+        PatientNoteDto updatedNote = noteService.updateNote(updateNote);
+        return updatedNote;
+    }
+
+    /**
+     * Request deleting note from patient
+     * @param id String The note id
+     */
+    @DeleteMapping("/api/patient/notes/delete")
+    public void deletePatientNote(@RequestParam String id) {
+        logger.info("Send delete note id: {}", id);
+        noteService.deleteNote(id);
     }
 }

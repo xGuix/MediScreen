@@ -14,7 +14,7 @@ import java.util.List;
  * Patient Notes controller
  */
 @RestController
-@RequestMapping("/note")
+@RequestMapping("/notes")
 public class PatientNotesController {
 
     private static Logger logger = LogManager.getLogger(PatientNotesController.class);
@@ -70,7 +70,7 @@ public class PatientNotesController {
      * @param newNote PatientNote The patient note
      * @return ResponseEntity PatientNote The patient notes added
      */
-    @PostMapping(value = "/patientNotes")
+    @PostMapping(value = "/patientNotes/add")
     public ResponseEntity<PatientNote> addNewNote(@RequestBody PatientNote newNote) {
         return new ResponseEntity<>(patientNotesService.addNewNote(newNote), HttpStatus.CREATED);
     }
@@ -80,7 +80,7 @@ public class PatientNotesController {
      * @param updateNote PatientNote The patient note
      * @return ResponseEntity PatientNote The patient notes updated
      */
-    @PutMapping("/patientNotes")
+    @PutMapping("/patientNotes/update")
     public ResponseEntity<PatientNote> updateNote(@RequestBody PatientNote updateNote){
         return new ResponseEntity<>(patientNotesService.updateNote(updateNote), HttpStatus.OK);
     }
@@ -90,7 +90,7 @@ public class PatientNotesController {
      * @param id String The patient note to delete
      * @return ResponseEntity PatientNote HttpStatus.OK
      */
-    @DeleteMapping("/patientNotes")
+    @DeleteMapping("/patientNotes/delete")
     public ResponseEntity<PatientNote> deleteNote(@RequestParam String id){
         patientNotesService.deleteNote(id);
         return new ResponseEntity<>(HttpStatus.OK);

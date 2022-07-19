@@ -1,11 +1,15 @@
 package com.mediscreen.patient.dto;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
+@DynamicUpdate
+@Document(collection = "notes")
 public class PatientNoteDto {
 
     @Id
@@ -26,6 +30,11 @@ public class PatientNoteDto {
         this.patientId = patientId;
         this.note = note;
         this.creationDate = creationDate;
+    }
+
+    public PatientNoteDto(Integer patientId, String note) {
+        this.patientId = patientId;
+        this.note = note;
     }
 
     public String getId() {

@@ -45,4 +45,23 @@ public class NoteService {
         logger.info("Add patient note send to repository with note: {}", newNote);
         return noteProxy.addNewNote(newNote);
     }
+
+    /**
+     * Request for updating patient note
+     * @param updateNote PatientNote The patient note
+     * @return PatientNote The patient notes updated
+     */
+    public PatientNoteDto updateNote(PatientNoteDto updateNote) {
+        logger.info("Update patient note send to repository with note: {}", updateNote);
+        return noteProxy.updateNote(updateNote);
+    }
+
+    /**
+     * Request for deleting patient note
+     * @param id String The note id
+     */
+    public void deleteNote(String id) {
+        logger.info("Delete patient note send to repository with id: {}", id);
+        noteProxy.deleteNote(id);
+    }
 }

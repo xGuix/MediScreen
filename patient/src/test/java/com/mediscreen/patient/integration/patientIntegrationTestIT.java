@@ -32,32 +32,32 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 public class patientIntegrationTestIT{
-    @Inject
+    @Autowired
     MockMvc mockMvc;
     @Autowired
     ObjectMapper objectMapper;
-    @Inject
-    ApiController patientController;
     @Autowired
     IPatientRepository patientRepository;
 
     static Patient patient;
     static Patient patient2;
     static List<Patient> patientList;
+
     @MockBean
     Model model;
 
     @BeforeAll
     static void setupTest(){
         patientList = new ArrayList<>();
-        patient = new Patient(0L,"Guix","Debrens", Date.valueOf("0001-12-01"), 'M', "333 Heaven Street", "06-666-6666");
-        patient2 = new Patient(1L,"Bob","Lazar", Date.valueOf("2022-02-02"), 'M', "51 Zone", "09-999-9999");
+        patient = new Patient(1L,"Guix","Debrens", Date.valueOf("2020-12-01"), 'M', "333 Heaven Street", "06-666-6666");
+        patient2 = new Patient(2L,"Bob","Lazar", Date.valueOf("2022-02-02"), 'M', "51 Zone", "09-999-9999");
         patientList.add(patient);
     }
 
     @Test
     void getAllPatient() throws Exception
     {
+        patientRepository.save(patient);
         mockMvc.perform(get("/api/allPatients")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -65,11 +65,11 @@ public class patientIntegrationTestIT{
     }
 
     @Test
-    void addANewPatient() throws PatientNotFoundException {
-
-        Patient patientToAdd = patientController.patientAdd(model, patient);
-        Patient patientToCheck = patientRepository.getPatientById(patientToAdd.getId());
-
-        assertEquals(patientToAdd,patientToCheck);
+    void addANewPatient() throws Exception {
+        mockMvc.perform(post("/api/patient/add")
+                        .content(objectMapper.writeValueAsString(patient2))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(objectMapper.writeValueAsString(patient2)));
     }
 }

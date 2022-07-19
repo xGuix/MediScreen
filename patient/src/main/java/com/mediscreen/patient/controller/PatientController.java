@@ -1,7 +1,9 @@
 package com.mediscreen.patient.controller;
 
+import com.mediscreen.patient.dto.PatientNoteDto;
 import com.mediscreen.patient.exception.PatientNotFoundException;
 import com.mediscreen.patient.model.Patient;
+import com.mediscreen.patient.service.NoteService;
 import com.mediscreen.patient.service.PatientService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,6 +23,9 @@ public class PatientController {
 
     @Autowired
     PatientService patientService;
+
+    @Autowired
+    NoteService noteService;
 
     /**
      *  Request Index Controller
@@ -109,5 +114,53 @@ public class PatientController {
         logger.info("Send new patient to add named: {} {}", patient.getFirstName(), patient.getLastName());
         patientService.patientAdd(model,patient);
         return "redirect:/allPatients";
+    }
+
+    /**
+     * Request to find all patient notes
+     * @param patientId Integer patient id
+     * @return patient page
+     */
+    @GetMapping("/patient/notes")
+    public  String getPatientNotes(Integer patientId) {
+        logger.info("Send search notes for patient id: {}", patientId);
+        noteService.getPatientNotes(patientId);
+        return "patient";
+    }
+
+    /**
+     * Request adding note to patient
+     * @param newNote PatientNoteDto new note
+     * @return patientPageInfo page
+     */
+    @PostMapping("/patient/notes/add")
+    public String addPatientNote(PatientNoteDto newNote) {
+        logger.info("Send new note: {}", newNote);
+        noteService.addNewNote(newNote);
+        return "patientPageInfo";
+    }
+
+    /**
+     * Request updating note to patient
+     * @param updateNote PatientNoteDto updated note
+     * @return patientPageInfo page
+     */
+    @PutMapping("/patient/notes/update")
+    public String updatePatientNote(PatientNoteDto updateNote) {
+        logger.info("Send update note: {}", updateNote);
+        noteService.updateNote(updateNote);
+        return "patientPageInfo";
+    }
+
+    /**
+     * Request deleting note
+     * @param id String note id
+     * @return patientPageInfo page
+     */
+    @DeleteMapping("/patient/notes/delete")
+    public String deletePatientNote(String id) {
+        logger.info("Send delete note id: {}", id);
+        noteService.deleteNote(id);
+        return "patientPageInfo";
     }
 }

@@ -1,14 +1,17 @@
 package com.mediscreen.notes.model;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Date;
 
+@DynamicUpdate
 @Document(collection = "notes")
-public class PatientNote {
+public class PatientNote implements Serializable {
 
     @Id
     private String id;

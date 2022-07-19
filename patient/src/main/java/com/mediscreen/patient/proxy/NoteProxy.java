@@ -1,8 +1,10 @@
 package com.mediscreen.patient.proxy;
 
 import com.mediscreen.patient.dto.PatientNoteDto;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -11,34 +13,34 @@ public interface NoteProxy {
     /**
      * Get All list of patients notes.
      */
-    @RequestMapping("/allPatientsNotes")
+    @RequestMapping("/notes/allPatientsNotes")
     List<PatientNoteDto> getAllPatientNotes();
 
     /**
      * Get All list of patients notes.
      * @param patientId Integer the patient i
      */
-    @RequestMapping("/patientNotes")
-    List<PatientNoteDto> getAllPatientNotesWithPatientId(Integer patientId);
+    @RequestMapping("/notes/patientNotes")
+    List<PatientNoteDto> getAllPatientNotesWithPatientId(@RequestParam("patientId") Integer patientId);
 
     /**
      * Add patient notes.
      * @param newNote PatientNoteDto Patient note to add
      */
-    @RequestMapping("/patientNotes")
-    PatientNoteDto addNewNote(PatientNoteDto newNote);
+    @RequestMapping("/notes/patientNotes/add")
+    PatientNoteDto addNewNote(@RequestBody PatientNoteDto newNote);
 
     /**
      * Update patient notes.
      * @param updateNote PatientNoteDto Patient note to update
      */
-    @RequestMapping("/patientNotes")
-    PatientNoteDto updateNote(PatientNoteDto updateNote);
+    @RequestMapping("/notes/patientNotes/update")
+    PatientNoteDto updateNote(@RequestBody PatientNoteDto updateNote);
 
     /**
      * Delete patient notes.
      * @param id String Patient id
      */
-    @RequestMapping("/patientNotes")
+    @RequestMapping("/notes/patientNotes/delete")
     void deleteNote(String id);
 }
