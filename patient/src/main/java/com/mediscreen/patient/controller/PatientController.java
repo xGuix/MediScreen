@@ -27,6 +27,8 @@ public class PatientController {
     @Autowired
     NoteService noteService;
 
+    Model model;
+
     /**
      *  Request Index Controller
      * @return index
@@ -57,6 +59,7 @@ public class PatientController {
         logger.info("Get patient page with id: {}", id);
         Patient patient = patientService.getPatientById(id);
         model.addAttribute("patientFound", patient);
+        getPatientNotes(model, Math.toIntExact(id));
         return "patientPageInfo";
     }
 
@@ -118,13 +121,15 @@ public class PatientController {
 
     /**
      * Request to find all patient notes
+     * @param model Model note
      * @param patientId Integer patient id
      * @return patient page
      */
     @GetMapping("/patient/notes")
-    public  String getPatientNotes(Integer patientId) {
+    public  String getPatientNotes(Model model, Integer patientId) {
         logger.info("Send search notes for patient id: {}", patientId);
-        noteService.getPatientNotes(patientId);
+        List<PatientNoteDto> patientNoteList = noteService.getPatientNotes(patientId);
+        model.addAttribute("PatientNoteList", patientNoteList);
         return "patient";
     }
 
@@ -137,7 +142,7 @@ public class PatientController {
     public String addPatientNote(PatientNoteDto newNote) {
         logger.info("Send new note: {}", newNote);
         noteService.addNewNote(newNote);
-        return "patientPageInfo";
+        return "redirect:/patientPageInfo";
     }
 
     /**

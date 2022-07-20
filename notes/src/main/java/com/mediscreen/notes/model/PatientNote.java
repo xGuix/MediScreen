@@ -1,12 +1,14 @@
 package com.mediscreen.notes.model;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @DynamicUpdate
@@ -20,6 +22,7 @@ public class PatientNote implements Serializable {
     @NotBlank(message = "Notes cannot be blank!")
     private String note;
 
+    @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date creationDate;
 

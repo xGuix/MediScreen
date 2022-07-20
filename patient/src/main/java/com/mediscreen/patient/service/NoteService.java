@@ -33,7 +33,8 @@ public class NoteService {
      */
     public List<PatientNoteDto> getPatientNotes(Integer patientId) {
         logger.info("Get all patients notes list");
-        return noteProxy.getAllPatientNotesWithPatientId(patientId);
+        List<PatientNoteDto> patientNoteList = noteProxy.getAllPatientNotesWithPatientId(patientId);
+        return patientNoteList;
     }
 
     /**

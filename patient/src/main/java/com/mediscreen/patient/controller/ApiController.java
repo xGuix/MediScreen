@@ -8,7 +8,9 @@ import com.mediscreen.patient.service.PatientService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +38,7 @@ public class ApiController {
     public List<Patient> allPatients() {
         logger.info("Send service request for all patients list");
         List<Patient> allPatients = patientService.getAllPatients();
-        return allPatients;
+        return  allPatients;
     }
 
     /**

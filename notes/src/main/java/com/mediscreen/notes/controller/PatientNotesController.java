@@ -43,7 +43,7 @@ public class PatientNotesController {
                     .body(patientNotesList);
         } else {
             logger.error("Patients notes not found: {}", HttpStatus.NOT_FOUND);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -61,7 +61,7 @@ public class PatientNotesController {
                     .body(patientNotesList);
         } else {
             logger.error("Patient notes not found: {}", HttpStatus.NOT_FOUND);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -90,7 +90,7 @@ public class PatientNotesController {
      * @param id String The patient note to delete
      * @return ResponseEntity PatientNote HttpStatus.OK
      */
-    @DeleteMapping("/patientNotes/delete")
+    @DeleteMapping(value="/patientNotes/delete")
     public ResponseEntity<PatientNote> deleteNote(@RequestParam String id){
         patientNotesService.deleteNote(id);
         return new ResponseEntity<>(HttpStatus.OK);

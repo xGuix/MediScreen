@@ -32,6 +32,7 @@ span{
 }
 
 .col-lg-auto{
+    max-width: 800px;
 	padding:45px;
     border-radius: 30px;
     background-color: #F5F5F5;

@@ -26,20 +26,57 @@
 		    </div>
 		  </div>
 		</nav>
-		<br><br>
+		<br>
 		<div class="container-fluid ">
 			<div class="row justify-content-md-center" >
 				<div class="col-lg-auto text-center">
-					<br>
 					<h3>PATIENT FILE:</h3>
 					<p>All information, note and assessment is in the file :</p>
-                    <a type="submit" class="btn col-3 btn-primary" href="/note"> Add note </a>
-                    <p>All notes here</p>
+                    <!-- Add patient note history -->
+                    <form th:action="@{/patient/notes/add}" th:method="post" th:objet="${PatientNoteDto}">
+                        <div class="form-floating">
+                            <textarea class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2">Write a new note</label>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn col-5 btn-primary btn-sm"> Save note </button>
+                    </form>
+                    <br><br>
+                    <!-- Search patient notes history -->
+                    <form th:action="@{/patient/notes}" method="get" th:object="${PatientNoteDto}">
+                        <div th:each="patientNote: ${PatientNoteList}">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <h5>Note: <span th:text="${#dates.format(patientNote.creationDate,'dd/MM/yyyy hh:mm')}"></span></h5></span>
+                                    <div class="d-flex justify-content-center">
+                                        <a th:href="@{/patient/notes/update}" name="updateNote" class="btn btn-primary col-3 btn-sm"> Modify </a>
+                                        &ensp;
+                                        <a th:href="@{/patient/notes/delete(id=${patientNote.patientId})}" name="patientId" class="btn btn-danger col-3 btn-sm"> Delete </a>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <span th:text="${patientNote.note}"></span>
+                                    <div class="d-flex justify-content-center">
+                                        <a th:href="@{/patient/notes/update}" name="updateNote" class="btn btn-primary col-3 btn-sm"> Modify </a>
+                                        &ensp;
+                                        <a th:href="@{/patient/notes/delete(id=${patientNote.patientId})}" name="patientId" class="btn btn-danger col-3 btn-sm"> Delete </a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <br>
+                            <div class="d-flex justify-content-center">
+                                <a th:href="@{/patient/notes/update}" name="updateNote" class="btn btn-primary col-4 btn-sm"> Modify </a>
+                                &ensp;
+                                <a th:href="@{/patient/notes/delete(id=${patientNote.patientId})}" name="patientId" class="btn btn-danger col-4 btn-sm"> Delete </a>
+                            </div>
+                            <br><br>
+                        </div>
+                    </form>
+                    <br>
                     <!-- Search result fields -->
                     <div th:if="${patientFound}" class="searchPatientResult">
                         <div th:each="patient : ${patientFound}">
                             <!-- Patient found : update available -->
-                            <h3> <span th:field="patient.fistName"></span> &nbsp; <span th:field="patient.lastName"></span></h3>
                             <p> Update the patient information and save.</p>
                             <!-- Patient form : Data fields info  -->
                             <form th:action="@{/patient/update}" method="post" th:object="${patient}">
@@ -85,7 +122,6 @@
 				</div>
 			</div>
 		</div>
-        <br>
         <div class="row justify-content-md-center"  >
             <a type="submit" class="btn col-3 btn-primary btn-sm center" href="/allPatients"> Back to list </a>
         </div>
