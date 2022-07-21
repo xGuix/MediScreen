@@ -120,7 +120,7 @@ public class ApiController {
      * @return patientNoteList Notes list for patient
      */
     @GetMapping("/api/patient/notes")
-    public List<PatientNoteDto> getPatientNotes(@RequestParam Integer patientId) {
+    public List<PatientNoteDto> getPatientNotes(@RequestParam Long patientId) {
         logger.info("Send search notes for patient id: {}", patientId);
         List<PatientNoteDto> patientNoteList = noteService.getPatientNotes(patientId);
         return patientNoteList;
@@ -154,7 +154,7 @@ public class ApiController {
      * Request deleting note from patient
      * @param id String The note id
      */
-    @DeleteMapping("/api/patient/notes/delete")
+    @DeleteMapping(value="/api/patient/notes/delete")
     public void deletePatientNote(@RequestParam String id) {
         logger.info("Send delete note id: {}", id);
         noteService.deleteNote(id);

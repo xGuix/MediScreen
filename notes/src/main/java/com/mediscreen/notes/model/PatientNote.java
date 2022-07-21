@@ -17,19 +17,19 @@ public class PatientNote implements Serializable {
 
     @Id
     private String id;
-    private Integer patientId;
+    private Long patientId;
 
     @NotBlank(message = "Notes cannot be blank!")
     private String note;
 
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date creationDate;
+    private Date creationDate = new Date();
 
     public PatientNote()
     {}
 
-    public PatientNote(String id, Integer patientId, String note, Date creationDate) {
+    public PatientNote(String id, Long patientId, String note, Date creationDate) {
         this.id = id;
         this.patientId = patientId;
         this.note = note;
@@ -44,11 +44,11 @@ public class PatientNote implements Serializable {
         this.id = id;
     }
 
-    public Integer getPatientId() {
+    public Long getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(Integer patientId) {
+    public void setPatientId(Long patientId) {
         this.patientId = patientId;
     }
 

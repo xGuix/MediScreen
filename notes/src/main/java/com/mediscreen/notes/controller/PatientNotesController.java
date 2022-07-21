@@ -55,14 +55,20 @@ public class PatientNotesController {
     @GetMapping("/patientNotes")
     public ResponseEntity<List<PatientNote>> getAllPatientNotesWithPatientId(@RequestParam Integer patientId){
         List<PatientNote> patientNotesList = patientNotesService.getAllPatientNotesWithPatientId(patientId);
-        if (!patientNotesList.isEmpty()) {
-            logger.info("Patient notes found: {}", HttpStatus.OK);
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(patientNotesList);
-        } else {
-            logger.error("Patient notes not found: {}", HttpStatus.NOT_FOUND);
-            return ResponseEntity.notFound().build();
-        }
+        logger.info("Patient notes found: {}", HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(patientNotesList);
+    }
+
+    /**
+     * Request patient notes to service
+     * @param id String The note id
+     * @return ResponseEntity patientNotesList List of patient notes
+     */
+    @GetMapping("/patientNotes/id")
+    public ResponseEntity<PatientNote> getPatientNoteWithId(@RequestParam String id){
+        PatientNote patientNotesList = patientNotesService.getPatientNotesWithId(id);
+        logger.info("Patient notes found: {}", HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(patientNotesList);
     }
 
     /**
@@ -72,6 +78,7 @@ public class PatientNotesController {
      */
     @PostMapping(value = "/patientNotes/add")
     public ResponseEntity<PatientNote> addNewNote(@RequestBody PatientNote newNote) {
+        logger.info("Patient notes add: {}", HttpStatus.CREATED);
         return new ResponseEntity<>(patientNotesService.addNewNote(newNote), HttpStatus.CREATED);
     }
 
@@ -82,6 +89,7 @@ public class PatientNotesController {
      */
     @PutMapping("/patientNotes/update")
     public ResponseEntity<PatientNote> updateNote(@RequestBody PatientNote updateNote){
+        logger.info("Patient notes update: {}", HttpStatus.OK);
         return new ResponseEntity<>(patientNotesService.updateNote(updateNote), HttpStatus.OK);
     }
 
@@ -92,6 +100,7 @@ public class PatientNotesController {
      */
     @DeleteMapping(value="/patientNotes/delete")
     public ResponseEntity<PatientNote> deleteNote(@RequestParam String id){
+        logger.info("Patient notes delete: {}", HttpStatus.OK);
         patientNotesService.deleteNote(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

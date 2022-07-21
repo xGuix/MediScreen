@@ -59,7 +59,7 @@ public class PatientController {
         logger.info("Get patient page with id: {}", id);
         Patient patient = patientService.getPatientById(id);
         model.addAttribute("patientFound", patient);
-        getPatientNotes(model, Math.toIntExact(id));
+        getPatientNotes(model, id);
         return "patientPageInfo";
     }
 
@@ -126,11 +126,11 @@ public class PatientController {
      * @return patient page
      */
     @GetMapping("/patient/notes")
-    public  String getPatientNotes(Model model, Integer patientId) {
+    public  String getPatientNotes(Model model, Long patientId) {
         logger.info("Send search notes for patient id: {}", patientId);
         List<PatientNoteDto> patientNoteList = noteService.getPatientNotes(patientId);
         model.addAttribute("PatientNoteList", patientNoteList);
-        return "patient";
+        return "patientPageInfo";
     }
 
     /**
@@ -150,11 +150,11 @@ public class PatientController {
      * @param updateNote PatientNoteDto updated note
      * @return patientPageInfo page
      */
-    @PutMapping("/patient/notes/update")
+    @RequestMapping(value="/patient/notes/update", method = {RequestMethod.GET, RequestMethod.PUT})
     public String updatePatientNote(PatientNoteDto updateNote) {
         logger.info("Send update note: {}", updateNote);
         noteService.updateNote(updateNote);
-        return "patientPageInfo";
+        return "redirect:/patientPageInfo";
     }
 
     /**
@@ -162,10 +162,12 @@ public class PatientController {
      * @param id String note id
      * @return patientPageInfo page
      */
-    @DeleteMapping("/patient/notes/delete")
-    public String deletePatientNote(String id) {
+    @RequestMapping(value="/patient/notes/delete", method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String deletePatientNote(Model model,String id) throws PatientNotFoundException {
         logger.info("Send delete note id: {}", id);
+        PatientNoteDto patientNote = noteService.getPatientNoteById(id);
+        Long patientId = patientNote.getPatientId();
         noteService.deleteNote(id);
-        return "patientPageInfo";
+        return patientPageInfo(model, patientId);
     }
 }

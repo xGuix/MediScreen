@@ -20,7 +20,13 @@ public interface NoteProxy {
      * @param patientId Integer the patient i
      */
     @RequestMapping("/notes/patientNotes")
-    List<PatientNoteDto> getAllPatientNotesWithPatientId(@RequestParam("patientId") Integer patientId);
+    List<PatientNoteDto> getAllPatientNotesWithPatientId(@RequestParam("patientId") Long patientId);
+
+    /**
+     * Get patient note with id.
+     */
+    @RequestMapping("/notes/patientNotes/id")
+    PatientNoteDto getPatientNoteWithId(@RequestParam("id") String id);
 
     /**
      * Add patient notes.

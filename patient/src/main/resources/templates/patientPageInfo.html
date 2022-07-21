@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:vertical-align="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,43 +35,34 @@
                     <!-- Add patient note history -->
                     <form th:action="@{/patient/notes/add}" th:method="post" th:objet="${PatientNoteDto}">
                         <div class="form-floating">
-                            <textarea class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2">Write a new note</label>
+                            <textarea class="form-control" id="floatingTextarea2" style="height:100px" th:value="${note}"> </textarea>
+                            <label for="floatingTextarea2"> Write a new note </label>
                         </div>
                         <br>
-                        <button type="submit" class="btn col-5 btn-primary btn-sm"> Save note </button>
+                        <button type="submit" class="btn col-5 btn-primary btn-sm" th:value="${patientId}"> Save note </button>
                     </form>
                     <br><br>
                     <!-- Search patient notes history -->
-                    <form th:action="@{/patient/notes}" method="get" th:object="${PatientNoteDto}">
+<!--                    <form th:action="@{/patient/notes}" method="get" th:object="${PatientNoteDto}">-->
                         <div th:each="patientNote: ${PatientNoteList}">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <h5>Note: <span th:text="${#dates.format(patientNote.creationDate,'dd/MM/yyyy hh:mm')}"></span></h5></span>
-                                    <div class="d-flex justify-content-center">
-                                        <a th:href="@{/patient/notes/update}" name="updateNote" class="btn btn-primary col-3 btn-sm"> Modify </a>
-                                        &ensp;
-                                        <a th:href="@{/patient/notes/delete(id=${patientNote.patientId})}" name="patientId" class="btn btn-danger col-3 btn-sm"> Delete </a>
-                                    </div>
+                            <ul class="list-group justify-content-center">
+                                <li class="list-group-item" style="vertical-align:middle;">
+                                    <span th:text="${#dates.format(patientNote.creationDate,'dd/MM/yyyy hh:mm')}" style="font-weight:bold;"></span>
                                 </li>
-                                <li class="list-group-item">
-                                    <span th:text="${patientNote.note}"></span>
-                                    <div class="d-flex justify-content-center">
-                                        <a th:href="@{/patient/notes/update}" name="updateNote" class="btn btn-primary col-3 btn-sm"> Modify </a>
-                                        &ensp;
-                                        <a th:href="@{/patient/notes/delete(id=${patientNote.patientId})}" name="patientId" class="btn btn-danger col-3 btn-sm"> Delete </a>
-                                    </div>
-                                </li>
+                                <div class="form-floating" style="font-size:0.9em;">
+                                    <textarea class="form-control" id="floatingTextareaNote" style="height:120px" th:text="${patientNote.note}"></textarea>
+                                    <label for="floatingTextarea2"> Modify note and save </label>
+                                </div>
                             </ul>
                             <br>
                             <div class="d-flex justify-content-center">
-                                <a th:href="@{/patient/notes/update}" name="updateNote" class="btn btn-primary col-4 btn-sm"> Modify </a>
-                                &ensp;
-                                <a th:href="@{/patient/notes/delete(id=${patientNote.patientId})}" name="patientId" class="btn btn-danger col-4 btn-sm"> Delete </a>
+                                <a th:href="@{/patient/notes/update(patientNote=${patientNote})}" class="btn btn-primary col-4 btn-sm"  th:value="${patientNote}" > Save </a>
+                                &emsp;
+                                <a th:href="@{/patient/notes/delete(id=${patientNote.id})}" class="btn btn-danger col-4 btn-sm"> Delete </a>
                             </div>
                             <br><br>
                         </div>
-                    </form>
+<!--                    </form>-->
                     <br>
                     <!-- Search result fields -->
                     <div th:if="${patientFound}" class="searchPatientResult">

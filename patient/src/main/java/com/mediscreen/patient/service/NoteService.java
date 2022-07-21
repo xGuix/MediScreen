@@ -31,10 +31,21 @@ public class NoteService {
      * @param patientId Integer The patient id
      * @return patientNotes PatientNoteDto The patient notes list
      */
-    public List<PatientNoteDto> getPatientNotes(Integer patientId) {
+    public List<PatientNoteDto> getPatientNotes(Long patientId) {
         logger.info("Get all patients notes list");
         List<PatientNoteDto> patientNoteList = noteProxy.getAllPatientNotesWithPatientId(patientId);
         return patientNoteList;
+    }
+
+    /**
+     * Request patient note by id
+     * @param id Integer The note id
+     * @return patientNotes PatientNoteDto The patient note
+     */
+    public PatientNoteDto getPatientNoteById(String id) {
+        logger.info("Get all patients notes list");
+        PatientNoteDto patientNoteId = noteProxy.getPatientNoteWithId(id);
+        return patientNoteId;
     }
 
     /**

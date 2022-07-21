@@ -47,6 +47,16 @@ public class PatientNotesService {
     }
 
     /**
+     * Request patient notes to repository
+     * @param id String The note id
+     * @return patientNotes patient notes
+     */
+    public PatientNote getPatientNotesWithId(String id) {
+        logger.info("Get patient note send to repository with id: {}", id);
+        return patientNotesRepository.getPatientNoteById(id);
+    }
+
+    /**
      * Request for adding patient note to repository
      * @param newNote PatientNote The patient note
      * @return PatientNote The patient notes added

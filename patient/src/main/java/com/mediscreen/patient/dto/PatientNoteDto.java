@@ -13,7 +13,7 @@ public class PatientNoteDto {
 
     @Id
     private String id;
-    private Integer patientId;
+    private Long patientId;
 
     @NotBlank(message = "Notes cannot be blank!")
     private String note;
@@ -25,14 +25,14 @@ public class PatientNoteDto {
     public PatientNoteDto()
     {}
 
-    public PatientNoteDto(String id, Integer patientId, String note, Date creationDate) {
+    public PatientNoteDto(String id, Long patientId, String note, Date creationDate) {
         this.id = id;
         this.patientId = patientId;
         this.note = note;
         this.creationDate = creationDate;
     }
 
-    public PatientNoteDto(Integer patientId, String note) {
+    public PatientNoteDto(Long patientId, String note) {
         this.patientId = patientId;
         this.note = note;
     }
@@ -45,11 +45,11 @@ public class PatientNoteDto {
         this.id = id;
     }
 
-    public Integer getPatientId() {
+    public Long getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(Integer patientId) {
+    public void setPatientId(Long patientId) {
         this.patientId = patientId;
     }
 
