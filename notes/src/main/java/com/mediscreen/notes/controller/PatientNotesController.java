@@ -53,7 +53,7 @@ public class PatientNotesController {
      * @return ResponseEntity patientNotesList List of patient notes
      */
     @GetMapping("/patientNotes")
-    public ResponseEntity<List<PatientNote>> getAllPatientNotesWithPatientId(@RequestParam Integer patientId){
+    public ResponseEntity<List<PatientNote>> getAllPatientNotesWithPatientId(@RequestParam Long patientId){
         List<PatientNote> patientNotesList = patientNotesService.getAllPatientNotesWithPatientId(patientId);
         logger.info("Patient notes found: {}", HttpStatus.OK);
         return ResponseEntity.status(HttpStatus.OK).body(patientNotesList);

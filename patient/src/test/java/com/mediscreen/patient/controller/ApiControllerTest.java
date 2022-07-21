@@ -2,6 +2,7 @@ package com.mediscreen.patient.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mediscreen.patient.model.Patient;
+import com.mediscreen.patient.service.NoteService;
 import com.mediscreen.patient.service.PatientService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,9 @@ public class ApiControllerTest {
 
     @MockBean
     PatientService patientService;
+
+    @MockBean
+    NoteService noteService;
 
     static Patient patient;
 

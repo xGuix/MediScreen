@@ -41,7 +41,7 @@ public class PatientNotesService {
      * @param patientId Integer The patient id
      * @return patientNotesList List of patient notes
      */
-    public List<PatientNote> getAllPatientNotesWithPatientId(Integer patientId) {
+    public List<PatientNote> getAllPatientNotesWithPatientId(Long patientId) {
         logger.info("Get patient notes send to repository with id: {}", patientId);
         return patientNotesRepository.getPatientNotesListByPatientId(patientId);
     }

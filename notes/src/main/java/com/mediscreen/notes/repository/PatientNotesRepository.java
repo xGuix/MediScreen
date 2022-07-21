@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface PatientNotesRepository extends MongoRepository<PatientNote, String> {
-        List<PatientNote> getPatientNotesListByPatientId(Integer patientId);
         PatientNote getPatientNoteById(String id);
+        List<PatientNote> getPatientNotesListByPatientId(Long patientId);
 }
