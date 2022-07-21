@@ -46,6 +46,7 @@
                     <div th:each="patientNote: ${PatientNoteList}">
                         <form th:action="@{/patient/notes/update(id=${patientNote.id})}" method="post" th:object="${PatientNoteDto}">
                                 <input class="form-control text-center" th:value="${#dates.format(patientNote.creationDate,'dd/MM/yyyy hh:mm')}" style="font-weight:500;vertical-align:middle;" disabled >
+                                <br>
                                 <div class="form-floating" style="font-size:0.9em;">
                                     <textarea class="form-control form-control-area" id="floatingTextareaNote" name="note" th:text="${patientNote.note}"></textarea>
                                     <label for="floatingTextarea2"> Modify as needed and save </label>
@@ -59,7 +60,6 @@
                         </form>
                         <br><br>
                     </div>
-                    <br>
                     <!-- Search result fields -->
                     <div th:if="${patientFound}" class="searchPatientResult">
                         <div th:each="patient : ${patientFound}">

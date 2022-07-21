@@ -26,7 +26,7 @@
 		    </div>
 		  </div>
 		</nav>
-		<br><br>
+		<br><br><br>
 		<div class="container-fluid ">
 			<div class="row justify-content-md-center" >
 				<div class="col-lg-auto text-center">
@@ -47,6 +47,7 @@
 					<form th:action="@{/allPatients}" method="get" th:object="${patient}">
 						<!-- Table of actual friends list -->
 						<h3> PATIENTS LIST </h3>
+						<p> All patients on the list.</p>
 						<table class="table table-sm table-striped">
 							<thead class="table-light">
 								<tr>
@@ -86,11 +87,11 @@
 					<form th:action="@{/allPatients/add}" method="post" th:objet="${patient}">
 						<div class="input-group input-group-sm mb-3">
 							<span class="input-group-text col-4 justify-content-center"> First name </span>
-							<input type="text" class="form-control" th:value="*{firstName}" name="firstName" placeholder="Enter firstname">
+							<input type="text" class="form-control" th:value="*{firstName}" name="firstName" placeholder="Enter firstname" required>
 						</div>
 						<div class="input-group input-group-sm mb-3">
 							<span class="input-group-text col-4 justify-content-center"> Last name </span>
-							<input type="text" class="form-control" th:value="*{lastName}" name="lastName" placeholder="Enter lastname">
+							<input type="text" class="form-control" th:value="*{lastName}" name="lastName" placeholder="Enter lastname" required>
 						</div>
 						<div class="input-group input-group-sm mb-3">
 							<span class="input-group-text col-4 justify-content-center"> Birthdate </span>
@@ -98,7 +99,7 @@
 						</div>
 						<div class="input-group input-group-sm mb-3">
 							<span class="input-group-text col-4 justify-content-center"> Gender </span>
-							<input type="text" class="form-control" th:value="*{gender}" name="gender" placeholder="M or F">
+							<input type="text" class="form-control" th:value="*{gender}" name="gender" placeholder="M or F" required>
 						</div>
 						<div class="input-group input-group-sm mb-3">
 							<span class="input-group-text col-4 justify-content-center"> Address </span>

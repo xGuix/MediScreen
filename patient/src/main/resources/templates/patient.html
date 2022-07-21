@@ -60,7 +60,7 @@
 						<br>
 						<button type="submit" class="btn col-5 btn-primary btn-sm"> Search </button>
 					</form>
-					<br><br>
+					<br>
 					<!-- Search result fields -->
 					<div th:if="${patientFound}" class="searchPatientResult">
 						<div th:each="patient : ${patientFound}">
@@ -68,6 +68,8 @@
 							<!-- Patient found : update available -->
 							<h3> PATIENT FOUND : </h3>
 							<p> Update the patient information and save.</p>
+							<a th:href="@{/patient/id(id=${patient.id})}" name="id" class="btn col-5 btn-success btn-sm"> Access to patient file </a>
+							<br><br>
 							<!-- Patient form : Data fields info  -->
 							<form th:action="@{/patient/update}" method="post" th:object="${patient}">
 								<div class="input-group input-group-sm mb-3">
