@@ -50,12 +50,13 @@ public class NoteService {
 
     /**
      * Request for adding patient note
-     * @param newNote PatientNote The patient note
+     * @param note PatientNote The patient note
+     * @param patientId Long the patient id
      * @return PatientNote The patient notes added
      */
-    public PatientNoteDto addNewNote(PatientNoteDto newNote) {
-        logger.info("Add patient note send to repository with note: {}", newNote);
-        return noteProxy.addNewNote(newNote);
+    public PatientNoteDto addNewNote(String note, Long patientId) {
+        logger.info("Add patient note send to repository with note: {}", note);
+        return noteProxy.addNewNote(note,patientId);
     }
 
     /**

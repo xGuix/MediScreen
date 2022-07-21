@@ -73,13 +73,14 @@ public class PatientNotesController {
 
     /**
      * Request for adding patient note to service
-     * @param newNote PatientNote The patient note
+     * @param note String The patient note
+     * @param patientId Long The patient id
      * @return ResponseEntity PatientNote The patient notes added
      */
     @PostMapping(value = "/patientNotes/add")
-    public ResponseEntity<PatientNote> addNewNote(@RequestBody PatientNote newNote) {
+    public ResponseEntity<PatientNote> addNewNote(@RequestParam String note, @RequestParam Long patientId) {
         logger.info("Patient notes add: {}", HttpStatus.CREATED);
-        return new ResponseEntity<>(patientNotesService.addNewNote(newNote), HttpStatus.CREATED);
+        return new ResponseEntity<>(patientNotesService.addNewNote(note,patientId), HttpStatus.CREATED);
     }
 
     /**

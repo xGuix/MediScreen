@@ -27,8 +27,6 @@ public class PatientController {
     @Autowired
     NoteService noteService;
 
-    Model model;
-
     /**
      *  Request Index Controller
      * @return index
@@ -130,31 +128,37 @@ public class PatientController {
         logger.info("Send search notes for patient id: {}", patientId);
         List<PatientNoteDto> patientNoteList = noteService.getPatientNotes(patientId);
         model.addAttribute("PatientNoteList", patientNoteList);
+        model.addAttribute("PatientId", patientId);
         return "patientPageInfo";
     }
 
     /**
      * Request adding note to patient
-     * @param newNote PatientNoteDto new note
+     * @param note PatientNoteDto new note
+     * @param patientId Long the patient id
      * @return patientPageInfo page
      */
-    @PostMapping("/patient/notes/add")
-    public String addPatientNote(PatientNoteDto newNote) {
-        logger.info("Send new note: {}", newNote);
-        noteService.addNewNote(newNote);
-        return "redirect:/patientPageInfo";
+    @RequestMapping(value="/patient/notes/add", method = {RequestMethod.GET, RequestMethod.POST})
+    public String addPatientNote(Model model, String note, Long patientId) throws PatientNotFoundException {
+        logger.info("Send new note: {} with patient id {}", note, patientId);
+        noteService.addNewNote(note, patientId);
+        return patientPageInfo(model, patientId);
     }
 
     /**
      * Request updating note to patient
-     * @param updateNote PatientNoteDto updated note
+     * @param note String updated note
+     * @param id Long the note id
      * @return patientPageInfo page
      */
-    @RequestMapping(value="/patient/notes/update", method = {RequestMethod.GET, RequestMethod.PUT})
-    public String updatePatientNote(PatientNoteDto updateNote) {
-        logger.info("Send update note: {}", updateNote);
-        noteService.updateNote(updateNote);
-        return "redirect:/patientPageInfo";
+    @PostMapping("/patient/notes/update")
+    public String updatePatientNote(Model model, String note, String id) throws PatientNotFoundException {
+        logger.info("Send update note: {} with id {}", note, id);
+        PatientNoteDto patientNote = noteService.getPatientNoteById(id);
+        patientNote.setNote(note);
+        Long patientId = patientNote.getPatientId();
+        noteService.updateNote(patientNote);
+        return patientPageInfo(model, patientId);
     }
 
     /**
@@ -163,7 +167,7 @@ public class PatientController {
      * @return patientPageInfo page
      */
     @RequestMapping(value="/patient/notes/delete", method = {RequestMethod.GET, RequestMethod.DELETE})
-    public String deletePatientNote(Model model,String id) throws PatientNotFoundException {
+    public String deletePatientNote(Model model, String id) throws PatientNotFoundException {
         logger.info("Send delete note id: {}", id);
         PatientNoteDto patientNote = noteService.getPatientNoteById(id);
         Long patientId = patientNote.getPatientId();

@@ -30,10 +30,11 @@ public interface NoteProxy {
 
     /**
      * Add patient notes.
-     * @param newNote PatientNoteDto Patient note to add
+     * @param note String Patient note to add
+     * @param patientId Long The patient id
      */
     @PostMapping("/notes/patientNotes/add")
-    PatientNoteDto addNewNote(@RequestBody PatientNoteDto newNote);
+    PatientNoteDto addNewNote(@RequestParam("note") String note, @RequestParam("patientId") Long patientId);
 
     /**
      * Update patient notes.

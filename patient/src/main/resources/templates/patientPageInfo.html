@@ -33,36 +33,32 @@
 					<h3>PATIENT FILE:</h3>
 					<p>All information, note and assessment is in the file :</p>
                     <!-- Add patient note history -->
-                    <form th:action="@{/patient/notes/add}" th:method="post" th:objet="${PatientNoteDto}">
+                    <form th:action="@{/patient/notes/add}" th:method="post">
                         <div class="form-floating">
-                            <textarea class="form-control" id="floatingTextarea2" style="height:100px" th:value="${note}"> </textarea>
+                            <textarea class="form-control" id="floatingTextarea2" style="height:100px" name="note" th:value="*{note}"> </textarea>
                             <label for="floatingTextarea2"> Write a new note </label>
                         </div>
                         <br>
-                        <button type="submit" class="btn col-5 btn-primary btn-sm" th:value="${patientId}"> Save note </button>
+                        <button type="submit" class="btn col-5 btn-primary btn-sm" name="patientId" th:value="${PatientId}"> Save note </button>
                     </form>
                     <br><br>
                     <!-- Search patient notes history -->
-<!--                    <form th:action="@{/patient/notes}" method="get" th:object="${PatientNoteDto}">-->
-                        <div th:each="patientNote: ${PatientNoteList}">
-                            <ul class="list-group justify-content-center">
-                                <li class="list-group-item" style="vertical-align:middle;">
-                                    <span th:text="${#dates.format(patientNote.creationDate,'dd/MM/yyyy hh:mm')}" style="font-weight:bold;"></span>
-                                </li>
+                    <div th:each="patientNote: ${PatientNoteList}">
+                        <form th:action="@{/patient/notes/update(id=${patientNote.id})}" method="post" th:object="${PatientNoteDto}">
+                                <input class="form-control text-center" th:value="${#dates.format(patientNote.creationDate,'dd/MM/yyyy hh:mm')}" style="font-weight:500;vertical-align:middle;" disabled >
                                 <div class="form-floating" style="font-size:0.9em;">
-                                    <textarea class="form-control" id="floatingTextareaNote" style="height:120px" th:text="${patientNote.note}"></textarea>
-                                    <label for="floatingTextarea2"> Modify note and save </label>
+                                    <textarea class="form-control form-control-area" id="floatingTextareaNote" name="note" th:text="${patientNote.note}"></textarea>
+                                    <label for="floatingTextarea2"> Modify as needed and save </label>
                                 </div>
-                            </ul>
                             <br>
                             <div class="d-flex justify-content-center">
-                                <a th:href="@{/patient/notes/update(patientNote=${patientNote})}" class="btn btn-primary col-4 btn-sm"  th:value="${patientNote}" > Save </a>
+                                <button type="submit" class="btn btn-primary col-4 btn-sm"> Save </button>
                                 &emsp;
                                 <a th:href="@{/patient/notes/delete(id=${patientNote.id})}" class="btn btn-danger col-4 btn-sm"> Delete </a>
                             </div>
-                            <br><br>
-                        </div>
-<!--                    </form>-->
+                        </form>
+                        <br><br>
+                    </div>
                     <br>
                     <!-- Search result fields -->
                     <div th:if="${patientFound}" class="searchPatientResult">

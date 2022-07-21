@@ -128,13 +128,14 @@ public class ApiController {
 
     /**
      * Request adding note to patient
-     * @param newNote PatientNoteDto new note
+     * @param note String new note
+     * @param patientId Long the patientId
      * @return addedNote the new note added
      */
     @PostMapping("/api/patient/notes/add")
-    public PatientNoteDto addPatientNote(@RequestBody PatientNoteDto newNote) {
-        logger.info("Send new note: {}", newNote);
-        PatientNoteDto addedNote = noteService.addNewNote(newNote);
+    public PatientNoteDto addPatientNote(@RequestParam String note, @RequestParam Long patientId) {
+        logger.info("Send new note: {}", note);
+        PatientNoteDto addedNote = noteService.addNewNote(note, patientId);
         return addedNote;
     }
 

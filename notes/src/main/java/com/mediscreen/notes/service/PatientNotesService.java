@@ -58,12 +58,16 @@ public class PatientNotesService {
 
     /**
      * Request for adding patient note to repository
-     * @param newNote PatientNote The patient note
+     * @param note String The patient note
+     * @param patientId Long The patient id
      * @return PatientNote The patient notes added
      */
-    public PatientNote addNewNote(PatientNote newNote) {
-        logger.info("Add patient note send to repository with note: {}", newNote);
-        return patientNotesRepository.insert(newNote);
+    public PatientNote addNewNote(String note, Long patientId) {
+        logger.info("Add patient note send to repository with note: {}", note);
+        PatientNote newPatientNote = new PatientNote();
+        newPatientNote.setNote(note);
+        newPatientNote.setPatientId(patientId);
+        return patientNotesRepository.insert(newPatientNote);
     }
 
     /**
