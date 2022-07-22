@@ -2,6 +2,7 @@ package com.mediscreen.notes.controller;
 
 import com.mediscreen.notes.model.PatientNote;
 import com.mediscreen.notes.service.PatientNotesService;
+import groovy.transform.Generated;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ public class PatientNotesController {
      * Request list of all patients notes to service
      * @return ResponseEntity patientsNotesList List of all patients notes
      */
+    @Generated
     @GetMapping("/allPatientsNotes")
     public ResponseEntity<List<PatientNote>> getAllPatientNotes(){
         List<PatientNote> patientNotesList = patientNotesService.getAllPatientNote();

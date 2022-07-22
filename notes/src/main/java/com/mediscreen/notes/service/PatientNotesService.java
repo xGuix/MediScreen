@@ -2,6 +2,7 @@ package com.mediscreen.notes.service;
 
 import com.mediscreen.notes.model.PatientNote;
 import com.mediscreen.notes.repository.PatientNotesRepository;
+import groovy.transform.Generated;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class PatientNotesService {
      * Request All List of patient notes to repository
      * @return patientNotesList List of all patient notes
      */
+    @Generated
     public List<PatientNote> getAllPatientNote() {
         logger.info("Get all patients notes send to repository");
         return patientNotesRepository.findAll();

@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -30,6 +32,7 @@ public class PatientNoteServiceTest {
     static PatientNote patientNote;
     static PatientNote patientNote2;
     static List<PatientNote> patientNotesList = new ArrayList<>();
+    static PatientNote patientNoteUpdate;
 
     @BeforeAll
     static void setupTest(){
@@ -37,6 +40,7 @@ public class PatientNoteServiceTest {
         patientNote2 = new PatientNote("test000id000Patient56", 1L, "Something that can be change for test setting", Date.valueOf("2010-12-25"));
         patientNotesList.add(patientNote);
         patientNotesList.add(patientNote2);
+        patientNoteUpdate = new PatientNote("PourquoiPasCela", 1L, "Did it works? if you read this! Yes ;)", Date.valueOf("2010-12-25"));
     }
 
     @Test
@@ -48,7 +52,7 @@ public class PatientNoteServiceTest {
     }
 
     @Test
-    void getPatientNotesWithId()
+    void getPatientNotesWithIdTest()
     {
         Mockito.when(patientNotesRepository.getPatientNoteById(any())).thenReturn(patientNote);
         PatientNote patientNoteTest = patientNotesService.getPatientNotesWithId(patientNote.getId());
@@ -56,13 +60,30 @@ public class PatientNoteServiceTest {
     }
 
     @Test
-    void addNewNote()
+    void addNewNoteTest()
     {
-        PatientNote patientNote3;
-        patientNote3 = new PatientNote("PourquoiPasCela", 1L, "Did it works? if you read this! Yes ;)", Date.valueOf("2010-12-25"));
-        patientNotesList.add(patientNote3);
-        Mockito.when(patientNotesRepository.insert(patientNote2)).thenReturn(patientNote2);
-        PatientNote patientNoteTest = patientNotesService.addNewNote(patientNote2.getNote(),patientNote2.getPatientId());
-        assertEquals(patientNote2 , patientNoteTest);
+        Mockito.when(patientNotesRepository.insert(any(PatientNote.class))).thenReturn(patientNoteUpdate);
+
+        PatientNote patientNoteTest = patientNotesService.addNewNote(patientNoteUpdate.getNote(),patientNoteUpdate.getPatientId());
+        assertEquals(patientNoteUpdate , patientNoteTest);
+    }
+
+    @Test
+    void updateNoteTest()
+    {
+        Mockito.when(patientNotesRepository.save(patientNoteUpdate)).thenReturn(patientNoteUpdate);
+
+        PatientNote patientNoteTest = patientNotesService.updateNote(patientNoteUpdate);
+        assertEquals(patientNoteUpdate , patientNoteTest);
+    }
+
+    @Test
+    void deleteNoteTest()
+    {
+        patientNotesList.add(patientNoteUpdate);
+        patientNotesService.deleteNote(patientNoteUpdate.getId());
+
+        assertTrue(patientNotesList.remove(patientNoteUpdate));
+        verify(patientNotesRepository, Mockito.times(1)).deleteById(patientNoteUpdate.getId());
     }
 }
