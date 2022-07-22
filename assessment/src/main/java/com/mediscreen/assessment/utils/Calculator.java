@@ -2,39 +2,31 @@ package com.mediscreen.assessment.utils;
 
 import com.mediscreen.assessment.dto.PatientNoteDto;
 import com.mediscreen.assessment.enums.TriggerTerms;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
+import java.time.Period;
+import java.util.Date;
 import java.util.List;
 
-@Component
+@Service
 public class Calculator {
-    private static final Logger logger = LoggerFactory.getLogger(Calculator.class);
 
     /**
      * Calculate a person's age from their birthDate.
-     *
-     * @param birthDate the birthdate of the person.
-     * @return person's age.
+     * @param birthdate the patient birthdate
+     * @return int person's age.
      */
-    public long calculateAge(final LocalDate birthDate) {
-
-        LocalDate end = LocalDate.now(ZoneId.systemDefault());
-
-        if (birthDate != null && birthDate.isBefore(end)) {
-            logger.debug("Person age successfully calculated - value = {}", ChronoUnit.YEARS.between(birthDate, end));
-            return ChronoUnit.YEARS.between(birthDate, end);
-        } else {
-            logger.error("Invalid start date", new IllegalArgumentException());
-            throw new IllegalArgumentException();
-        }
-
+    public int calculateAge(final Date birthdate) {
+        LocalDate birthDateLocalDate = new java.sql.Date(birthdate.getTime()).toLocalDate();
+        return Period.between(birthDateLocalDate, LocalDate.now()).getYears();
     }
 
+    /**
+     * Count occurrences with enum triggerTerms.
+     * @param notes the patient notes list
+     * @return count int occurrences number
+     */
     public int calculateStringOccurrence(List<PatientNoteDto> notes) {
         int count = 0;
         StringBuilder notesToString = new StringBuilder();

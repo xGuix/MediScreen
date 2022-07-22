@@ -12,9 +12,9 @@ import java.util.List;
 @FeignClient(value = "notes", url="${mediscreen.noteUrl}")
 public interface NoteProxy {
 
-    @GetMapping("/patientNotes")
+    @GetMapping("/notes/patientNotes")
     List<PatientNoteDto> getAllPatientNotesWithPatientId(@RequestParam Long patientId);
 
-    @GetMapping("/patientNotes/id")
+    @GetMapping("/notes/patientNotes/id")
     PatientNoteDto getPatientNoteWithId(@RequestParam String id);
 }

@@ -10,8 +10,6 @@ import com.mediscreen.assessment.utils.Calculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -20,13 +18,13 @@ public class AssessmentService {
 
     private final NoteProxy noteProxy;
     private final PatientProxy patientProxy;
-    private final Calculator calculator;
+    @Autowired
+    Calculator calculator;
 
     @Autowired
-    public AssessmentService(NoteProxy noteProxy, PatientProxy patientProxy,Calculator calculator) {
+    public AssessmentService(NoteProxy noteProxy, PatientProxy patientProxy) {
         this.noteProxy = noteProxy;
         this.patientProxy = patientProxy;
-        this.calculator = calculator;
     }
 
     public Report generateReport (Long patientId) {
@@ -35,13 +33,11 @@ public class AssessmentService {
             List<PatientNoteDto> notes = noteProxy.getAllPatientNotesWithPatientId(patientId);
 
             Date date = patient.getBirthdate();
-            ZoneId defaultZoneId = ZoneId.systemDefault();
-            Instant instant = date.toInstant();
-            int age = Math.toIntExact(calculator.calculateAge(instant.atZone(defaultZoneId).toLocalDate()));
+            int age = calculator.calculateAge(date);
             Character gender = patient.getGender();
             int triggersTermsOccurrences = calculator.calculateStringOccurrence(notes);
-            String riskLevel = null;
 
+            String riskLevel = null;
             Report report = new Report();
             report.setPatient(patient);
             report.setAge(age);

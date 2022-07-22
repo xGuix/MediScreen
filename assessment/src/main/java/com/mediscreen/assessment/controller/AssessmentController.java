@@ -24,7 +24,7 @@ public class AssessmentController {
 
     @GetMapping("/report/id")
     public ResponseEntity<Report> getReportByPatientId(@RequestParam Long patientId) {
-        logger.info("Request patient Id : {}", patientId);
+        logger.info("Request assessment for patient Id : {}", patientId);
         Report report = assessmentService.generateReport(patientId);
         if (report!=null) {
             logger.info("Report successfully found - code : {}", HttpStatus.OK);
