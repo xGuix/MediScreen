@@ -1,8 +1,10 @@
 package com.mediscreen.patient.controller;
 
 import com.mediscreen.patient.dto.PatientNoteDto;
+import com.mediscreen.patient.dto.ReportDto;
 import com.mediscreen.patient.exception.PatientNotFoundException;
 import com.mediscreen.patient.model.Patient;
+import com.mediscreen.patient.service.AssessmentService;
 import com.mediscreen.patient.service.NoteService;
 import com.mediscreen.patient.service.PatientService;
 import org.apache.logging.log4j.LogManager;
@@ -23,9 +25,10 @@ public class PatientController {
 
     @Autowired
     PatientService patientService;
-
     @Autowired
     NoteService noteService;
+    @Autowired
+    AssessmentService assessmentService;
 
     /**
      *  Request Index Controller
@@ -58,6 +61,8 @@ public class PatientController {
         Patient patient = patientService.getPatientById(id);
         model.addAttribute("patientFound", patient);
         getPatientNotes(model, id);
+        ReportDto patientReport = assessmentService.getReportByPatientId(id);
+        model.addAttribute("patientReport", patientReport);
         return "patientPageInfo";
     }
 

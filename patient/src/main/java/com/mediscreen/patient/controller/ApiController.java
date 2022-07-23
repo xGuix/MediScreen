@@ -1,8 +1,10 @@
 package com.mediscreen.patient.controller;
 
 import com.mediscreen.patient.dto.PatientNoteDto;
+import com.mediscreen.patient.dto.ReportDto;
 import com.mediscreen.patient.exception.PatientNotFoundException;
 import com.mediscreen.patient.model.Patient;
+import com.mediscreen.patient.service.AssessmentService;
 import com.mediscreen.patient.service.NoteService;
 import com.mediscreen.patient.service.PatientService;
 import org.apache.logging.log4j.LogManager;
@@ -29,6 +31,9 @@ public class ApiController {
 
     @Autowired
     NoteService noteService;
+
+    @Autowired
+    AssessmentService assessmentService;
 
     /**
      * Request All List of patients
@@ -159,5 +164,17 @@ public class ApiController {
     public void deletePatientNote(@RequestParam String id) {
         logger.info("Send delete note id: {}", id);
         noteService.deleteNote(id);
+    }
+
+    /**
+     * Request to find all patient notes
+     * @param patientId Integer Patient id
+     * @return patientNoteList Notes list for patient
+     */
+    @GetMapping("/api/patient/report")
+    public ReportDto getReportByPatientId(@RequestParam Long patientId) {
+        logger.info("Send search notes for patient id: {}", patientId);
+        ReportDto patientReport = assessmentService.getReportByPatientId(patientId);
+        return patientReport;
     }
 }

@@ -28,7 +28,7 @@ public class NoteService {
 
     /**
      * Request patient notes list
-     * @param patientId Integer The patient id
+     * @param patientId Long The patient id
      * @return patientNotes PatientNoteDto The patient notes list
      */
     public List<PatientNoteDto> getPatientNotes(Long patientId) {
@@ -39,7 +39,7 @@ public class NoteService {
 
     /**
      * Request patient note by id
-     * @param id Integer The note id
+     * @param id String The note id
      * @return patientNotes PatientNoteDto The patient note
      */
     public PatientNoteDto getPatientNoteById(String id) {

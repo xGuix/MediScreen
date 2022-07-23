@@ -51,7 +51,7 @@ public class PatientNotesController {
 
     /**
      * Request list of patient notes to service
-     * @param patientId Integer The patient id
+     * @param patientId Long The patient id
      * @return ResponseEntity patientNotesList List of patient notes
      */
     @GetMapping("/patientNotes")

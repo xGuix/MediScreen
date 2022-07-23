@@ -21,12 +21,20 @@ public class AssessmentService {
     @Autowired
     Calculator calculator;
 
+    /**
+     * Constructor: instance of assessment Service
+     */
     @Autowired
     public AssessmentService(NoteProxy noteProxy, PatientProxy patientProxy) {
         this.noteProxy = noteProxy;
         this.patientProxy = patientProxy;
     }
 
+    /**
+     * Generate report of patient with patient id
+     * @param patientId Long The patient id
+     * @return Report The patient report
+     */
     public Report generateReport (Long patientId) {
         try {
             PatientDto patient = patientProxy.patientById(patientId);

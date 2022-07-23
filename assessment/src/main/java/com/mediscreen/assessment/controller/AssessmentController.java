@@ -17,11 +17,19 @@ public class AssessmentController {
 
     private final AssessmentService assessmentService;
 
+    /**
+     * Constructor: instance of assessment controller
+     */
     @Autowired
     public AssessmentController(AssessmentService assessmentService) {
         this.assessmentService = assessmentService;
     }
 
+    /**
+     * Request report of patient to send service
+     * @param patientId Long The patient id
+     * @return ResponseEntity Report The patient report
+     */
     @GetMapping("/report/id")
     public ResponseEntity<Report> getReportByPatientId(@RequestParam Long patientId) {
         logger.info("Request assessment for patient Id : {}", patientId);
