@@ -48,12 +48,14 @@ textarea#floatingTextareaNote{
     background-color: #F5F5F5;
 }
 
-#emailHelp{
-    font-size: 0.7em;
-}
-
 .searchAccountResult{
 	padding:30px;
     border-radius: 30px;
     background-color: #FFFFFF;
+}
+
+.p-3{
+    border-radius:6px;
+    font-size: 1.5em;
+    font-weight:500;
 }

@@ -30,8 +30,19 @@
 		<div class="container-fluid ">
 			<div class="row justify-content-md-center" >
 				<div class="col-lg-auto text-center">
-					<h3>PATIENT FILE:</h3>
-					<p>All information, note and assessment is in the file :</p>
+                    <!-- Patient assessment -->
+                    <div th:if="${patientReport}" class="searchReportResult">
+                        <h4>PATIENT RISK REPORT</h4>
+                        <p>PATIENT AGE : <span th:text="${patientReport.age}"></span> years old
+                        <br>The risk level of the patient is:</p>
+                        <span th:if="${#strings.equals(patientReport.riskLevel ,'NONE')}" class="d-block p-3 bg-success bg-gradient text-white" th:text="${patientReport.riskLevel}"></span>
+                        <span th:if="${#strings.equals(patientReport.riskLevel ,'EARLY_ONSET')}" class="d-block p-3 bg-warning bg-gradient bg-opacity-75 text-white" th:text="${patientReport.riskLevel}"></span>
+                        <span th:if="${#strings.equals(patientReport.riskLevel ,'BORDERLINE')}" class="d-block p-3 bg-warning bg-gradient text-white" th:text="${patientReport.riskLevel}"></span>
+                        <span th:if="${#strings.equals(patientReport.riskLevel ,'IN_DANGER')}" class="d-block p-3 bg-danger bg-gradient text-white" th:text="${patientReport.riskLevel}"></span>
+                    </div>
+                    <br><br>
+					<h4>PATIENT FILE:</h4>
+					<p>All notes for patient in the file :</p>
                     <!-- Add patient note history -->
                     <form th:action="@{/patient/notes/add}" th:method="post">
                         <div class="form-floating">
