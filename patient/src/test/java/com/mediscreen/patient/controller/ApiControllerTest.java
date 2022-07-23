@@ -51,7 +51,7 @@ public class ApiControllerTest {
     @BeforeAll
     static void setupTest(){
         patientList = new ArrayList<>();
-        patient = new Patient(0L,"Guix","Debrens", Date.valueOf("0001-12-25"), 'M', "333 Heaven Street", "06-666-6666");
+        patient = new Patient(0L,"Guix","Debrens", Date.valueOf("2021-12-25"), 'M', "333 Heaven Street", "06-666-6666");
         patientList.add(patient);
     }
 

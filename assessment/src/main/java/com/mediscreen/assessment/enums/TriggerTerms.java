@@ -1,5 +1,8 @@
 package com.mediscreen.assessment.enums;
 
+import groovy.transform.Generated;
+
+@Generated
 public enum TriggerTerms {
     TRIGGER_TERM_A("hémoglobine a1c"),
     TRIGGER_TERM_B("microalbumine"),

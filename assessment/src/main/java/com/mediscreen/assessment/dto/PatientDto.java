@@ -1,8 +1,11 @@
 package com.mediscreen.assessment.dto;
 
+import groovy.transform.Generated;
+
 import java.io.Serializable;
 import java.sql.Date;
 
+@Generated
 public class PatientDto implements Serializable {
     private Long id;
     private String firstName;

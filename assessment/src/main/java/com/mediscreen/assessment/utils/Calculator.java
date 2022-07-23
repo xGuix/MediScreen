@@ -4,9 +4,10 @@ import com.mediscreen.assessment.dto.PatientNoteDto;
 import com.mediscreen.assessment.enums.TriggerTerms;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
+
 import java.util.List;
 
 @Service
@@ -18,7 +19,7 @@ public class Calculator {
      * @return int person's age.
      */
     public int calculateAge(final Date birthdate) {
-        LocalDate birthDateLocalDate = new java.sql.Date(birthdate.getTime()).toLocalDate();
+        LocalDate birthDateLocalDate = new Date(birthdate.getTime()).toLocalDate();
         return Period.between(birthDateLocalDate, LocalDate.now()).getYears();
     }
 
