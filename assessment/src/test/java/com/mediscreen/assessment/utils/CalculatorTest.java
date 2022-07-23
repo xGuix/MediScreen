@@ -11,6 +11,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Service Calculator Test Class
+ */
 @SpringBootTest
 public class CalculatorTest {
 

@@ -16,6 +16,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Main patient-app
+ * Service Test Assessment Class
+ */
 @SpringBootTest
 public class AssessmentServiceTest {
 

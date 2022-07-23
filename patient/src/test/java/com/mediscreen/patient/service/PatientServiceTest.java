@@ -19,6 +19,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 
+/**
+ * Service Patient Test Class
+ */
 @SpringBootTest
 @ActiveProfiles("test")
 public class PatientServiceTest {

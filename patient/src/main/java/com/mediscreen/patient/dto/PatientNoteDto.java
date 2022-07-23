@@ -8,6 +8,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
+/**
+ * Model PatientNoteDto Class patient-app
+ * {@inheritDoc}
+ */
 @DynamicUpdate
 public class PatientNoteDto {
 
@@ -22,20 +26,25 @@ public class PatientNoteDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date creationDate;
 
+    /**
+     * Default constructor patient
+     */
     public PatientNoteDto()
     {}
 
+    /**
+     * Full constructor patient
+     * @param id String Note id
+     * @param patientId Long patient id
+     * @param note String the note
+     * @param creationDate Date creation
+     */
     public PatientNoteDto(String id, Long patientId, String note, Date creationDate) {
         this.id = id;
         this.patientId = patientId;
         this.note = note;
         this.creationDate = creationDate;
     }
-
-//    public PatientNoteDto(Long patientId, String note) {
-//        this.patientId = patientId;
-//        this.note = note;
-//    }
 
     public String getId() {
         return id;

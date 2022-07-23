@@ -7,6 +7,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Main patient-app
+ * Service Assessment Class via proxy assessment
+ */
 @Service("AssessmentService")
 public class AssessmentService {
     private static Logger logger = LogManager.getLogger(AssessmentService.class);

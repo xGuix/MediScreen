@@ -5,6 +5,9 @@ import groovy.transform.Generated;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Dto Patient Note
+ */
 @Generated
 public class PatientNoteDto implements Serializable {
 
@@ -13,19 +16,24 @@ public class PatientNoteDto implements Serializable {
     private String note;
     private Date creationDate;
 
+    /**
+     * Default constructor patient
+     */
     public PatientNoteDto()
     {}
 
+    /**
+     * Full constructor PatientNote
+     * @param id String Note id
+     * @param patientId Long patient id
+     * @param note String the note
+     * @param creationDate Date creation
+     */
     public PatientNoteDto(String id, Long patientId, String note, Date creationDate) {
         this.id = id;
         this.patientId = patientId;
         this.note = note;
         this.creationDate = creationDate;
-    }
-
-    public PatientNoteDto(Long patientId, String note) {
-        this.patientId = patientId;
-        this.note = note;
     }
 
     public String getId() {

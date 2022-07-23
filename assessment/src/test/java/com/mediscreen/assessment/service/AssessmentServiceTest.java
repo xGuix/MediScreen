@@ -19,6 +19,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+/**
+ * Service Test Assessment Class
+ */
 @SpringBootTest
 public class AssessmentServiceTest {
 

@@ -64,6 +64,7 @@ public class ApiController {
      * Request patient find by id
      * @param id Long the patient id
      * @return patient The patient with id
+     * @throws PatientNotFoundException Patient not found exception
      */
     @GetMapping("/api/patient")
     public Patient patientById(Long id) throws PatientNotFoundException {
@@ -112,6 +113,7 @@ public class ApiController {
     /**
      * Request to delete patient by id
      * @param id Patient to delete
+     * @throws PatientNotFoundException Patient not found exception
      */
     @DeleteMapping("/api/patient/deleteId")
     public void patientDeleteById(Long id) throws PatientNotFoundException {

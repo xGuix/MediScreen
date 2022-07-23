@@ -20,6 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
+/**
+ * Service Note Test Class patient-app
+ */
 @SpringBootTest
 public class NoteServiceTest {
     @Autowired

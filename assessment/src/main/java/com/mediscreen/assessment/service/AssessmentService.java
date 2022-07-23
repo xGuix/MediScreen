@@ -13,6 +13,10 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.util.List;
 
+/**
+ * Assessment-app
+ * Service Assessment Class
+ */
 @Service
 public class AssessmentService {
 
@@ -23,6 +27,8 @@ public class AssessmentService {
 
     /**
      * Constructor: instance of assessment Service
+     * @param noteProxy Note proxy
+     * @param patientProxy Patient proxy
      */
     @Autowired
     public AssessmentService(NoteProxy noteProxy, PatientProxy patientProxy) {

@@ -17,6 +17,7 @@ What things you need to install this App
 - Java 11
 - SpringBoot
 - mySql
+- mongoDB
 - Jpa Repositor
 - Thymeleaf
 - Maven

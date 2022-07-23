@@ -5,6 +5,10 @@ import groovy.transform.Generated;
 import java.io.Serializable;
 import java.sql.Date;
 
+/**
+ * Model PatientDto Class assessment-app
+ * {@inheritDoc}
+ */
 @Generated
 public class PatientDto implements Serializable {
     private Long id;
@@ -15,9 +19,22 @@ public class PatientDto implements Serializable {
     private String address;
     private String phoneNumber;
 
+    /**
+     * Default constructor patient
+     */
     public PatientDto() {
     }
 
+    /**
+     * Full constructor patient
+     * @param id Long patient id
+     * @param firstName String patient first name
+     * @param lastName String patient last name
+     * @param birthdate Date patient birthdate
+     * @param gender Char patient gender
+     * @param address String patient address
+     * @param phoneNumber String patient phone number
+     */
     public PatientDto(Long id, String firstName, String lastName, Date birthdate, char gender, String address, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;

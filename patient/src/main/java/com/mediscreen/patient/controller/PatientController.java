@@ -31,7 +31,7 @@ public class PatientController {
     AssessmentService assessmentService;
 
     /**
-     *  Request Index Controller
+     * Request Index Controller
      * @return index
      */
     @RequestMapping("/")
@@ -52,8 +52,10 @@ public class PatientController {
 
     /**
      * Request patient id page
+     * @param model Model thymeleaf model
      * @param id Long Patient id
-     * @return the page of patient
+     * @return the page info of patient
+     * @throws PatientNotFoundException Patient not found
      */
     @GetMapping("/patient/id")
     public  String patientPageInfo(Model model, Long id) throws PatientNotFoundException {
@@ -68,6 +70,9 @@ public class PatientController {
 
     /**
      * Request patient to get information
+     * @param model Model thymeleaf model
+     * @param firstName String Patient first name
+     * @param lastName String Patient last name
      * @return patient page
      */
     @GetMapping("/patient/search")
@@ -79,18 +84,22 @@ public class PatientController {
 
     /**
      * Request patient to update information
-     * @return patient page
+     * @param model Model thymeleaf model
+     * @param patient Patient the patient
+     * @return redirect allPatients page
      */
     @PostMapping("/patient/update")
     public String patientUpdate(Model model, Patient patient) {
         logger.info("Send update to patient named: {} {}", patient.getFirstName(), patient.getLastName());
         patientService.patientUpdate(model, patient);
-        return "patient";
+        return "redirect:/allPatients";
     }
 
     /**
      * Request to delete patient
-     * @return allPatients page
+     * @param model Model thymeleaf model
+     * @param patient Patient the patient
+     * @return redirect allPatients page
      */
     @RequestMapping("/patient/delete")
     public String patientDelete(Model model, Patient patient) {
@@ -101,6 +110,7 @@ public class PatientController {
 
     /**
      * Request All List of patients
+     * @param model Model thymeleaf model
      * @return allPatients page
      */
     @GetMapping("/allPatients")
@@ -113,6 +123,8 @@ public class PatientController {
 
     /**
      * Request to add new patient
+     * @param model Model thymeleaf model
+     * @param patient Patient id
      * @return allPatients page
      */
     @PostMapping("/allPatients/add")
@@ -124,7 +136,7 @@ public class PatientController {
 
     /**
      * Request to find all patient notes
-     * @param model Model note
+     * @param model Model thymeleaf model
      * @param patientId Integer patient id
      * @return patient page
      */
@@ -142,6 +154,7 @@ public class PatientController {
      * @param note PatientNoteDto new note
      * @param patientId Long the patient id
      * @return patientPageInfo page
+     * @throws PatientNotFoundException Patient not found
      */
     @RequestMapping(value="/patient/notes/add", method = {RequestMethod.GET, RequestMethod.POST})
     public String addPatientNote(Model model, String note, Long patientId) throws PatientNotFoundException {
@@ -155,6 +168,7 @@ public class PatientController {
      * @param note String updated note
      * @param id Long the note id
      * @return patientPageInfo page
+     * @throws PatientNotFoundException Patient not found
      */
     @PostMapping("/patient/notes/update")
     public String updatePatientNote(Model model, String note, String id) throws PatientNotFoundException {
@@ -170,6 +184,7 @@ public class PatientController {
      * Request deleting note
      * @param id String note id
      * @return patientPageInfo page
+     * @throws PatientNotFoundException Patient not found
      */
     @RequestMapping(value="/patient/notes/delete", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deletePatientNote(Model model, String id) throws PatientNotFoundException {

@@ -1,9 +1,7 @@
 package com.mediscreen.patient.service;
 
-import com.mediscreen.patient.dto.PatientNoteDto;
 import com.mediscreen.patient.exception.PatientNotFoundException;
 import com.mediscreen.patient.model.Patient;
-import com.mediscreen.patient.proxy.NoteProxy;
 import com.mediscreen.patient.repository.IPatientRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +11,10 @@ import org.springframework.ui.Model;
 
 import java.util.*;
 
+/**
+ * Main patient-app
+ * Patient Service Class
+ */
 @Service("PatientService")
 public class PatientService {
 
@@ -111,7 +113,6 @@ public class PatientService {
 
     /**
      * Request All patient List
-     * @return List Patient The patients list
      */
     public void deletePatientById(Long id) throws PatientNotFoundException {
         logger.info("Delete patients with id: {}", id);

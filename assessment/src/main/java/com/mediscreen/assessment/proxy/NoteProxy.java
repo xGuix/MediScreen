@@ -8,13 +8,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+/**
+ * Assessment Interface Note Proxy
+ */
 @Service
 @FeignClient(value = "notes", url="${mediscreen.noteUrl}")
 public interface NoteProxy {
 
+    /**
+     * {@inheritDoc}
+     */
     @GetMapping("/notes/patientNotes")
     List<PatientNoteDto> getAllPatientNotesWithPatientId(@RequestParam Long patientId);
 
+    /**
+     * {@inheritDoc}
+     */
     @GetMapping("/notes/patientNotes/id")
     PatientNoteDto getPatientNoteWithId(@RequestParam String id);
 }

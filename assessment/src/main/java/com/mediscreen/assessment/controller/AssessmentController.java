@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controller Class Assessment
+ */
 @RestController
 @RequestMapping("/assessment")
 public class AssessmentController {
@@ -19,6 +22,7 @@ public class AssessmentController {
 
     /**
      * Constructor: instance of assessment controller
+     * @param assessmentService Service assessment
      */
     @Autowired
     public AssessmentController(AssessmentService assessmentService) {

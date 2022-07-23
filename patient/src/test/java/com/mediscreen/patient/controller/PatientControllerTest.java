@@ -25,6 +25,9 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * Patient Controller Test Class
+ */
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(PatientController.class)

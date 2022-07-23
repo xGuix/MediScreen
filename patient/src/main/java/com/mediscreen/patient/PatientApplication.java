@@ -6,10 +6,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * Patient-app Main class
+ */
 @EnableSwagger2
 @EnableFeignClients
 @SpringBootApplication
 public class PatientApplication {
+	/**
+	 * Run app with main class
+	 * @param args String args
+	 */
 	@Generated
 	public static void main(String[] args) {
 		SpringApplication.run(PatientApplication.class, args);

@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Main patient-app
+ * Service Note Class via proxy note
+ */
 @Service("NoteService")
 public class NoteService {
 

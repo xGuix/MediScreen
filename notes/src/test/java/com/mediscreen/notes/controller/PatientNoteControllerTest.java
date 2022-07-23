@@ -25,6 +25,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Controller Class PatientNote
+ */
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = PatientNotesController.class)
