@@ -7,9 +7,6 @@ public class ReportDto {
     private int age;
     private String riskLevel;
 
-    public ReportDto() {
-    }
-
     public ReportDto(Patient patient, int age, String riskLevel) {
         this.patient = patient;
         this.age = age;

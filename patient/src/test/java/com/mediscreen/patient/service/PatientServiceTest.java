@@ -38,8 +38,8 @@ public class PatientServiceTest {
 
     @BeforeAll
     static void setupTest(){
-        patient = new Patient(0L,"Guix","Debrens", Date.valueOf("0001-12-25"), 'M', "333 Heaven Street", "06-666-6666");
-        patient2 = new Patient(1L,"Rosa","Bonheur", Date.valueOf("1966-12-31"), 'F',"1 Brookside St","100-222-3333");
+        patient = new Patient(1L,"Guix","Debrens", Date.valueOf("1985-12-25"), 'M', "333 Heaven Street", "06-666-6666");
+        patient2 = new Patient(2L,"Rosa","Bonheur", Date.valueOf("1966-12-31"), 'F',"1 Brookside St","100-222-3333");
         patientsList.add(patient);
     }
 
@@ -54,16 +54,16 @@ public class PatientServiceTest {
     @Test
     void findPatientByIdTest() throws PatientNotFoundException
     {
-        Mockito.when(patientRepository.getPatientById(0L)).thenReturn(patient);
-        Patient patientTest = patientService.getPatientById(0L);
+        Mockito.when(patientRepository.getPatientById(1L)).thenReturn(patient);
+        Patient patientTest = patientService.getPatientById(1L);
         assertEquals(patient , patientTest);
     }
 
     @Test
     void findPatientByIdReturnNotFoundExceptionTest() throws PatientNotFoundException
     {
-        Mockito.when(patientRepository.getPatientById(1L)).thenReturn(null);
-        assertThrows(PatientNotFoundException.class,() -> patientService.getPatientById(1L));
+        Mockito.when(patientRepository.getPatientById(2L)).thenReturn(null);
+        assertThrows(PatientNotFoundException.class,() -> patientService.getPatientById(2L));
     }
 
     @Test
@@ -129,7 +129,7 @@ public class PatientServiceTest {
     @Test
     void patientDeleteByIdTest() throws PatientNotFoundException {
         patientsList.add(patient2);
-        Mockito.when(patientRepository.getPatientById(1L)).thenReturn(patient2);
+        Mockito.when(patientRepository.getPatientById(2L)).thenReturn(patient2);
         patientService.deletePatientById(patient2.getId());
 
         assertTrue(patientsList.remove(patient2));
@@ -139,7 +139,7 @@ public class PatientServiceTest {
 
     @Test
     void patientDeleteByIdReturnPatientNotFoundExceptionTest() throws PatientNotFoundException {
-        Mockito.when(patientRepository.getPatientById(1L)).thenReturn(null);
-        assertThrows(PatientNotFoundException.class,() -> patientService.deletePatientById(1L));
+        Mockito.when(patientRepository.getPatientById(2L)).thenReturn(null);
+        assertThrows(PatientNotFoundException.class,() -> patientService.deletePatientById(2L));
     }
 }

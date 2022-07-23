@@ -13,7 +13,7 @@ public interface NoteProxy {
      * Get All list of patients notes.
      */
     @RequestMapping("/notes/allPatientsNotes")
-    List<PatientNoteDto> getAllPatientNotes();
+    List<PatientNoteDto> getAllPatientsNotes();
 
     /**
      * Get All list of patients notes.

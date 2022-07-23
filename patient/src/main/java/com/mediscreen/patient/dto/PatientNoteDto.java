@@ -32,10 +32,10 @@ public class PatientNoteDto {
         this.creationDate = creationDate;
     }
 
-    public PatientNoteDto(Long patientId, String note) {
-        this.patientId = patientId;
-        this.note = note;
-    }
+//    public PatientNoteDto(Long patientId, String note) {
+//        this.patientId = patientId;
+//        this.note = note;
+//    }
 
     public String getId() {
         return id;
