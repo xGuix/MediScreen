@@ -2,7 +2,7 @@
 **The patients health keeper**
 
 MediScreen help in detecting risk for disease. <br>
-Using a predictive analysis of patient populations at an effordable cost.
+Using a predictive analysis of patient populations at an affordable cost.
 
 
 ## Getting Started
@@ -14,11 +14,11 @@ See deployment for notes on how to deploy the project on a live system.
 ### App built with
 What things you need to install this App
 
-- Java 11
-- SpringBoot
-- mySql
-- mongoDB
-- Jpa Repositor
+- Java 17
+- SpringBoot 2.7.1
+- mySql 8.0.29
+- mongoDB 6.0
+- Jpa Repository
 - Thymeleaf
 - Maven
 - JUnit 5
@@ -41,60 +41,59 @@ https://spring.io/projects/spring-boot
 4.Install mySql:
 https://www.mysql.com/downloads/
 
+4.Install mongoDB:
+https://www.mongodb.com/docs/manual/installation/
+
 After downloading and installing it, no specific setup required.
 
 
-## Setup Database
-You will have to set up SQL tables and Admin user if needed.
+### Data Architecture
+MediScreen main app project:
+* Service Patient (Main)
+* Service Notes
+* Service Assessment
+* Service mysqldb
+* Service mongoDB
 
-Scripts are provided in folders :
+All Deployed in with Docker
 
-```shell
-/ScriptSQL
+
+### Build Application
+Build all jar from main directory :
 ```
-
-First run script for data structure
-
-```shell
-ScriptSQL-architectureData.sql
-```
-
-Create a specific admin user or use {root} {rootroot} to execute run 
-
-
-## Run the App
-
-Setup your config in application.properties file if wanted for eclipse Startup for exemple.
-
-{application.properties} is blank for following startup 
-
-```shell
-spring.datasource.username=
-spring.datasource.password=
-```
-
-**Run Maven commande  with {root} or {adminUser}** <br>
-Replace {xGuix} with user and {Admin} with password <br>
-Launch app commande :
-
-```shell
-mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.username=xGuix --spring.datasource.password=Admin"
+mvn clean install
 ```
 
 
-## URL Access
-
-Open your browser and get localhost:8080
-
-```html
-https://localhost:8080/
+### Docker Start Application
+Launch command in terminal:
+```
+docker-compose up -d
 ```
 
-Shutdown server
-
+Shutdown server app
 ```shell
 Ctrl + C
 ```
+
+Shutdown docker and clean up containers:
+```
+docker-compose down
+```
+
+
+### URL Access
+TourGuide URL allow access to all url containers
+
+Open your browser and get local url:
+```html
+https://0.0.0.0:8080/ or https://localhost:8080/
+```
+
+
+### Application Open Ports
+- Notes: ```https://0.0.0.0:8081```
+- Assessment: ```https://0.0.0.0:8082```
 
 
 ### Testing
@@ -141,4 +140,3 @@ Run the `index.html` in your web browser.
 Jacoco coverage is automatically done with tests.
 
 Access file directory : `target/site/jacoco/index.html`
-
