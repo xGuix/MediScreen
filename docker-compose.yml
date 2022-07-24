@@ -1,0 +1,77 @@
+version: "3.9"
+services:
+  notes-mongodb:
+    image: mongo
+    container_name: notes-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongoDBdata:/mongoDBdata
+    networks:
+      - mediscreen_network
+
+  mediscreen-notes:
+    build: ./notes/.
+    image: mediscreen-notes
+    container_name: notes
+    ports:
+      - "8081:8081"
+    depends_on:
+      - notes-mongodb
+    networks:
+      - mediscreen_network
+
+  mediscreen-assessment:
+    build: ./assessment/.
+    image: mediscreen-assessment
+    container_name: assessment
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mediscreen-notes
+    networks:
+      - mediscreen_network
+
+  patient-mysqldb:
+    image: mysql:8
+    container_name: mysqldb
+    command:
+      --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_DATABASE: mediscreen
+      MYSQL_ROOT_PASSWORD: rootroot
+    volumes:
+      - sqldata:/var/lib/mysql
+    networks:
+      - mediscreen_network
+
+  mediscreen-patient:
+    build: ./patient/.
+    image: mediscreen-patient
+    container_name: patient
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL-HOST: mysqldb:3306
+      MYSQL-DATABASE: mediscreen
+      MYSQL-USERNAME: root
+      MYSQL-PASSWORD: rootroot
+      MICROSERVICE-NOTES: notes:8081
+      MICROSERVICE-ASSESSMENT: assessment:8082
+    networks:
+      - mediscreen_network
+    depends_on:
+      - patient-mysqldb
+      - mediscreen-notes
+      - mediscreen-assessment
+    restart: always
+
+networks:
+  mediscreen_network:
+    driver: bridge
+
+volumes:
+  sqldata:
+  mongoDBdata:

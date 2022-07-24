@@ -30,12 +30,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
- * @hidden
+ * API Controller Test Class
  */
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = ApiController.class)
-
 public class ApiControllerTest {
 
     @Autowired

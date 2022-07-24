@@ -40,11 +40,11 @@ public class PatientNotesController {
     public ResponseEntity<List<PatientNote>> getAllPatientNotes(){
         List<PatientNote> patientNotesList = patientNotesService.getAllPatientNote();
         if (!patientNotesList.isEmpty()) {
-            logger.info("Patients notes found: {}", HttpStatus.OK);
+            logger.info("All patients notes request found: {}", HttpStatus.OK);
             return ResponseEntity.status(HttpStatus.OK)
                     .body(patientNotesList);
         } else {
-            logger.error("Patients notes not found: {}", HttpStatus.NOT_FOUND);
+            logger.error("All Patients notes request status: {}", HttpStatus.NOT_FOUND);
             return ResponseEntity.notFound().build();
         }
     }
@@ -57,7 +57,7 @@ public class PatientNotesController {
     @GetMapping("/patientNotes")
     public ResponseEntity<List<PatientNote>> getAllPatientNotesWithPatientId(@RequestParam Long patientId){
         List<PatientNote> patientNotesList = patientNotesService.getAllPatientNotesWithPatientId(patientId);
-        logger.info("Patient notes found: {}", HttpStatus.OK);
+        logger.info("The patient notes list is found: {}", HttpStatus.OK);
         return ResponseEntity.status(HttpStatus.OK).body(patientNotesList);
     }
 
@@ -69,7 +69,7 @@ public class PatientNotesController {
     @GetMapping("/patientNotes/id")
     public ResponseEntity<PatientNote> getPatientNoteWithId(@RequestParam String id){
         PatientNote patientNotesList = patientNotesService.getPatientNotesWithId(id);
-        logger.info("Patient notes found: {}", HttpStatus.OK);
+        logger.info("The patient note is found: {}", HttpStatus.OK);
         return ResponseEntity.status(HttpStatus.OK).body(patientNotesList);
     }
 

@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import static org.mockito.Mockito.verify;
  * Service Note Test Class patient-app
  */
 @SpringBootTest
+@ActiveProfiles("test")
 public class NoteServiceTest {
     @Autowired
     NoteService noteService;

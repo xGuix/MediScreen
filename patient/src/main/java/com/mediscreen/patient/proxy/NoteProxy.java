@@ -11,7 +11,7 @@ import java.util.List;
  * Main patient-app
  * Interface Note Proxy
  */
-@FeignClient(value="notes" , url="localhost:8081")
+@FeignClient(value="notes" , url="${mediscreen.microservice-notes}")
 public interface NoteProxy {
     /**
      * Get All list of patients notes.

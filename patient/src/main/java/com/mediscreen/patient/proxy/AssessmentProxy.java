@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * Proxy Assessment Class
  */
-@FeignClient(value="assessment" , url="localhost:8082")
+@FeignClient(value="assessment" , url="${mediscreen.microservice-assessment}")
 public interface AssessmentProxy {
     /**
      * Get report of patient by id.
