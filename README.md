@@ -19,8 +19,8 @@ What things you need to install this App
 - mySql 8.0.29
 - mongoDB 6.0
 - Jpa Repository
-- Thymeleaf
 - Maven
+- Thymeleaf
 - JUnit 5
 - Jacoco
 - Log4j

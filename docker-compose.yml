@@ -6,7 +6,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - mongoDBdata:/mongoDBdata
+      - mongoDBdata:/data/db
     networks:
       - mediscreen_network
 
