@@ -90,14 +90,14 @@ public class PatientControllerTest {
                 .andExpect(view().name("patient"));
     }
 
-    //@Test
+    @Test
     void patientUpdateTest() throws Exception
     {
         mockMvc.perform(post("/patient/update")
                         .param("model", model().toString())
                         .param("patient", String.valueOf(patient)))
-                .andExpect(status().isOk())
-                .andExpect(view().name("patient"));
+                .andExpect(status().isFound())
+                .andExpect(view().name("redirect:/allPatients"));
     }
 
     @Test
