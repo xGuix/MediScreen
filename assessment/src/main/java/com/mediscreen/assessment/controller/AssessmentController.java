@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +45,25 @@ public class AssessmentController {
         } else {
             logger.error("Report not found, error - code : {}", HttpStatus.NOT_FOUND);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    /**
+     * Request report of patient service
+     * @param patId Long The patient id
+     * @return String ResponseEntity patient report
+     */
+    @PostMapping(value = "/id", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> getCurlReportById(Long patId) {
+        Report report = assessmentService.generateReport(patId);
+        if (report!=null) {
+            logger.info("Report successfully found - code : {}", HttpStatus.OK);
+            String reportResponse = "Patient: "+report.getPatient().getFirstName()+" "
+                    +report.getPatient().getLastName()+" (age "+report.getAge()+ ") diabetes assessment is: "+report.getRiskLevel();
+            return ResponseEntity.status(HttpStatus.OK).body(reportResponse);
+        } else {
+            logger.error("Report can't be send, Patient don't exist - code : {}", HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 }

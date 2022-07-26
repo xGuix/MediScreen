@@ -12,7 +12,7 @@ import java.util.List;
  * Assessment Interface Note Proxy
  */
 @Service
-@FeignClient(value = "notes", url="${mediscreen.noteUrl}")
+@FeignClient(value = "notes", url= "localhost:8081" /*"${mediscreen.noteUrl}"*/)
 public interface NoteProxy {
 
     /**

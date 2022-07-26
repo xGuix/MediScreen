@@ -23,6 +23,7 @@ import java.util.List;
  * Patient API controller
  */
 @RestController
+@RequestMapping("/api")
 public class ApiController {
     private static Logger logger = LogManager.getLogger(ApiController.class);
 
@@ -39,7 +40,7 @@ public class ApiController {
      * Request All List of patients
      * @return allPatients List of all patients
      */
-    @GetMapping("/api/allPatients")
+    @GetMapping("/allPatients")
     public List<Patient> allPatients() {
         logger.info("Send service request for all patients list");
         List<Patient> allPatients = patientService.getAllPatients();
@@ -53,7 +54,7 @@ public class ApiController {
      * @param lastName String patient last name
      * @return patient list of matching search
      */
-    @GetMapping("/api/patient/search")
+    @GetMapping("/patient/search")
     public Collection<Patient> patientsByName(Model model, String firstName, String lastName) {
         logger.info("Send search patient named: {} {}", firstName, lastName);
         Collection<Patient> patientsMatch = patientService.getByPatientName(model,firstName,lastName);
@@ -66,7 +67,7 @@ public class ApiController {
      * @return patient The patient with id
      * @throws PatientNotFoundException Patient not found exception
      */
-    @GetMapping("/api/patient")
+    @GetMapping("/patient")
     public Patient patientById(Long id) throws PatientNotFoundException {
         logger.info("Send search patient with id: {}", id);
         Patient patientById = patientService.getPatientById(id);
@@ -79,7 +80,7 @@ public class ApiController {
      * @param patient Patient The patient to add
      * @return addPatient The patient added
      */
-    @PostMapping("/api/patient/add")
+    @PostMapping(value="/patient/add")
     public Patient patientAdd(Model model, @RequestBody Patient patient) {
         logger.info("Send new patient to add named: {} {}", patient.getFirstName(), patient.getLastName());
         Patient addPatient = patientService.patientAdd(model,patient);
@@ -92,7 +93,7 @@ public class ApiController {
      * @param patient Patient The patient info to update
      * @return patientUpdate The patient to update
      */
-    @PutMapping("/api/patient/update")
+    @PutMapping("/patient/update")
     public Patient patientUpdate(Model model, @RequestBody Patient patient) {
         logger.info("Send update to patient named: {} {}", patient.getFirstName(), patient.getLastName());
         Patient patientUpdate = patientService.patientUpdate(model, patient);
@@ -104,7 +105,7 @@ public class ApiController {
      * @param model Model attribute
      * @param patient Patient to delete
      */
-    @DeleteMapping("/api/patient/delete")
+    @DeleteMapping("/patient/delete")
     public void patientDelete(Model model, @RequestBody Patient patient) {
         logger.info("Send patient to delete named: {} {}", patient.getFirstName(), patient.getLastName());
         patientService.patientDelete(model, patient);
@@ -115,7 +116,7 @@ public class ApiController {
      * @param id Patient to delete
      * @throws PatientNotFoundException Patient not found exception
      */
-    @DeleteMapping("/api/patient/deleteId")
+    @DeleteMapping("/patient/deleteId")
     public void patientDeleteById(Long id) throws PatientNotFoundException {
         logger.info("Send patient id to delete: {}", id);
         patientService.deletePatientById(id);
@@ -126,7 +127,7 @@ public class ApiController {
      * @param patientId Integer Patient id
      * @return patientNoteList Notes list for patient
      */
-    @GetMapping("/api/patient/notes")
+    @GetMapping("/patient/notes")
     public List<PatientNoteDto> getPatientNotes(@RequestParam Long patientId) {
         logger.info("Send search notes for patient id: {}", patientId);
         List<PatientNoteDto> patientNoteList = noteService.getPatientNotes(patientId);
@@ -139,7 +140,7 @@ public class ApiController {
      * @param patientId Long the patientId
      * @return addedNote the new note added
      */
-    @PostMapping("/api/patient/notes/add")
+    @PostMapping("/patient/notes/add")
     public PatientNoteDto addPatientNote(@RequestParam String note, @RequestParam Long patientId) {
         logger.info("Send new note: {}", note);
         PatientNoteDto addedNote = noteService.addNewNote(note, patientId);
@@ -151,7 +152,7 @@ public class ApiController {
      * @param updateNote PatientNoteDto update note
      * @return patientPageInfo page
      */
-    @PutMapping("/api/patient/notes/update")
+    @PutMapping("/patient/notes/update")
     public PatientNoteDto updatePatientNote(@RequestBody PatientNoteDto updateNote) {
         logger.info("Send update note: {}", updateNote);
         PatientNoteDto updatedNote = noteService.updateNote(updateNote);
@@ -162,7 +163,7 @@ public class ApiController {
      * Request deleting note from patient
      * @param id String The note id
      */
-    @DeleteMapping(value="/api/patient/notes/delete")
+    @DeleteMapping(value="/patient/notes/delete")
     public void deletePatientNote(@RequestParam String id) {
         logger.info("Send delete note id: {}", id);
         noteService.deleteNote(id);
@@ -173,7 +174,7 @@ public class ApiController {
      * @param patientId Integer Patient id
      * @return patientNoteList Notes list for patient
      */
-    @GetMapping("/api/patient/report")
+    @GetMapping("/patient/report")
     public ReportDto getReportByPatientId(@RequestParam Long patientId) {
         logger.info("Send search notes for patient id: {}", patientId);
         ReportDto patientReport = assessmentService.getReportByPatientId(patientId);

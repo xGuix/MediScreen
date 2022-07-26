@@ -52,8 +52,10 @@ public class patientIntegrationTestIT{
     @BeforeAll
     static void setupTest(){
         patientList = new ArrayList<>();
-        patient = new Patient(1L,"Guix","Debrens", Date.valueOf("2020-12-01"), 'M', "333 Heaven Street", "06-666-6666");
-        patient2 = new Patient(2L,"Bob","Lazar", Date.valueOf("2022-02-02"), 'M', "51 Zone", "09-999-9999");
+        patient = new Patient(1L,"Guix","Debrens", Date.valueOf("2020-12-01"),
+                'M', "333 Heaven Street", "06-666-6666");
+        patient2 = new Patient(2L,"Bob","Lazar", Date.valueOf("2022-02-02"),
+                'M', "51 Zone", "09-999-9999");
         patientList.add(patient);
     }
 
